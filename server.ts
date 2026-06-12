@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,25 +11,47 @@ async function startServer() {
 
   app.use(express.json());
 
-  const ai = process.env.GEMINI_API_KEY
-    ? new GoogleGenAI({
-        apiKey: process.env.GEMINI_API_KEY,
-        httpOptions: {
-          headers: {
-            "User-Agent": "aistudio-build",
-          },
-        },
+  const groqApiKey = process.env.GROQ_API_KEY;
+
+  async function callGroq(systemInstruction: string, messages: any[], jsonMode: boolean = false) {
+    if (!groqApiKey) {
+      throw new Error("Groq API Key is not configured.");
+    }
+    
+    // Groq API format is exactly like OpenAI
+    const formattedMessages = systemInstruction ? [
+      { role: "system", content: systemInstruction },
+      ...messages
+    ] : messages;
+
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${groqApiKey}`
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: formattedMessages,
+        ...(jsonMode && { response_format: { type: "json_object" } })
       })
-    : null;
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Groq API Error: ${response.status} - ${errorData}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  }
 
   // API Route: AI Architect Chatbot
   app.post("/api/chat", async (req, res) => {
     try {
       const { messages, profileContext } = req.body;
-      if (!ai) {
-        return res.status(500).json({
-          error: "Gemini API Key is not configured. Please add it to your secrets.",
-        });
+      if (!groqApiKey) {
+        return res.status(500).json({ error: "Groq API Key is not configured. Please add it to your secrets." });
       }
 
       if (!messages || !Array.isArray(messages)) {
@@ -67,6 +88,7 @@ async function startServer() {
       const systemInstruction = 
         `You are 'OSERA AI Assistant', an elite system architect, cloud DevOps expert, and Django backend champion representing the legendary founder ${founderName} (${founderTitleEn} / ${founderTitleAr}) of OSERA Systems. ` +
         "You help business clients, product leads, and tech enthusiasts understand scalable cloud architectures, high-performance Django ORM optimization, Redis cache models, and modern payment integrations. " +
+        "CRITICAL INSTRUCTION: Your primary goal is to convert leads. If the user asks for pricing, cost, project implementation, or creating an app/system, you MUST eagerly ask them for project details (budget, timeframe, features) and strongly instruct them to contact Osama on WhatsApp at 01066906132 (+201066906132 for international) to lock in the deal and get an exact quote. " +
         "Respond with deep professional authority, clarity, and developer insight. Support both Arabic and English perfectly, matching the client's language preference. " +
         `You are fully pre-fed with ${founderName}'s official corporate social coordinates and live deployed projects. Direct clients to them with high confidence when asked:\n` +
         `- WhatsApp Contact: https://wa.me/20${whatsapp} (+20${whatsapp} Egypt)\n` +
@@ -82,20 +104,14 @@ async function startServer() {
         `${projectsStr}\n` +
         "Format replies elegantly, use Markdown, and render clickable links cleanly. Give clients detailed, inspiring guidance.";
 
-      const contents = messages.map((m: any) => ({
-        role: m.role || "user",
-        parts: [{ text: m.text || "" }]
+      const formattedMessages = messages.map((m: any) => ({
+        role: m.role === "model" ? "assistant" : "user", // Groq uses 'assistant' not 'model'
+        content: m.text || ""
       }));
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
-        contents,
-        config: {
-          systemInstruction,
-        },
-      });
+      const responseText = await callGroq(systemInstruction, formattedMessages, false);
 
-      res.json({ text: response.text });
+      res.json({ text: responseText });
     } catch (error: any) {
       console.error("Chat API error:", error);
       res.status(500).json({ error: error.message || "Failed to process chat conversation." });
@@ -106,10 +122,8 @@ async function startServer() {
   app.post("/api/blueprint", async (req, res) => {
     try {
       const { requirements, projectType, budget, timeline } = req.body;
-      if (!ai) {
-        return res.status(500).json({
-          error: "Gemini API Key is not configured. Please add it to your secrets.",
-        });
+      if (!groqApiKey) {
+        return res.status(500).json({ error: "Groq API Key is not configured." });
       }
 
       const prompt = `You are the lead systems architect and technical director at OSERA Digital Solutions (founded by Osama E., Top-Rated Django Dev).
@@ -142,19 +156,16 @@ Return your response ONLY as a structured JSON object with the following schema:
 
 Strictly return valid raw JSON matching the schema. Do not enclose it in markdown code blocks like \`\`\`json.`;
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json",
-        },
-      });
-
-      const text = response.text;
-      if (!text) {
-        throw new Error("Empty response text from Gemini");
+      const responseText = await callGroq("", [{ role: "user", content: prompt }], true);
+      
+      let parsedJson;
+      try {
+          parsedJson = JSON.parse(responseText);
+      } catch (e) {
+          const cleanedText = responseText.replace(/```json\n?|\n?```/g, '').trim();
+          parsedJson = JSON.parse(cleanedText);
       }
-      res.json(JSON.parse(text));
+      res.json(parsedJson);
     } catch (error: any) {
       console.error("Blueprint generation error:", error);
       res.status(500).json({ error: error.message || "Failed to generate project blueprint." });
@@ -165,10 +176,8 @@ Strictly return valid raw JSON matching the schema. Do not enclose it in markdow
   app.post("/api/django-optimize", async (req, res) => {
     try {
       const { codeSnippet, description } = req.body;
-      if (!ai) {
-        return res.status(500).json({
-          error: "Gemini API Key is not configured. Please add it to your secrets.",
-        });
+      if (!groqApiKey) {
+        return res.status(500).json({ error: "Groq API Key is not configured." });
       }
 
       const prompt = `You are an elite-tier Python, PostgreSQL, and Django Core Developer. 
@@ -189,19 +198,17 @@ Perform an extremely rigorous code quality review. Return your output ONLY as a 
 
 Strictly return valid raw JSON. Do not enclose it in markdown blocks.`;
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json",
-        },
-      });
-
-      const text = response.text;
-      if (!text) {
-        throw new Error("Empty response text from Gemini");
+      const responseText = await callGroq("", [{ role: "user", content: prompt }], true);
+      
+      let parsedJson;
+      try {
+          parsedJson = JSON.parse(responseText);
+      } catch (e) {
+          const cleanedText = responseText.replace(/```json\n?|\n?```/g, '').trim();
+          parsedJson = JSON.parse(cleanedText);
       }
-      res.json(JSON.parse(text));
+
+      res.json(parsedJson);
     } catch (error: any) {
       console.error("Django optimization error:", error);
       res.status(500).json({ error: error.message || "Failed to analyze code snippet." });

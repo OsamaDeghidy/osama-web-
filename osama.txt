@@ -1,1 +1,42 @@
 npm install
+
+npm run div 
+
+تكامل كامل لروابط التواصل والمشاريع الاحترافية:
+تم تغذية السيرفر الرئيسي والشات بوت لتوجيه العملاء بذكاء وثقة تامة، كما تم إدراج الروابط بقوائم تفاعلية فائقة السرعة:
+روابط التواصل الخاصة بك:
+واتساب مصر الكود الدولي المباشر: https://wa.me/201066906132 (تواصل فوري)
+منصة مستقل (ناجزلي): https://nafezly.com/u/osama_el_deghady
+لينكد إن: https://www.linkedin.com/in/osama-deghadey-941552255/
+أب ورك: https://www.upwork.com/freelancers/~01bf4f5af0779c48e8?mp_source=share (Top Rated)
+قناة يوتيوب المحاضرات: https://youtube.com/@osamaesmail-y3p?si=IXi4umn-kN0QnNZp
+بوابة فيسبوك وتيك توك التكنولوجية: روابط الصفحات الرسمية مدرجة بدقة.
+بوابة الدفع وبدء المشاريع (PayPal): https://www.paypal.me/OsamaDeghady لتلقي الدفعات.
+موقع Indeed الوظيفي الممتاز.
+المشاريع الحية المنشورة (المحفظة الاحترافية للأنظمة):
+لوحة وبوابة الإدارة Enterprise Portal (http://64.227.108.135/login)
+نظام الذكاء الاصطناعي Osara AI (https://www.osara-ai.com/)
+منصة Connect-Pack OMS اللوجستية (https://oms.connect-pack.com/)
+منصة الصيانة الأمريكية A-List Home Pros (https://www.alisthomepros.com/)
+شبكة رسن الإخبارية العربية (https://www.rsnalarabiya.info/)
+ منصه تعليميه    https://www.kero-trade.com/en
+
+
+
+ …or create a new repository on the command line
+echo "# osama-web-" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+
+git remote add origin https://github.com/OsamaDeghidy/osama-web-.git
+git push -u origin master
+…or push an existing repository from the command line
+git remote add origin https://github.com/OsamaDeghidy/osama-web-.git
+git branch -M master
+git push -u origin master
+
+osera-ai.com
+
+Osama El-Deghadey
+Customer #: 682803296

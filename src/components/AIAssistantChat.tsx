@@ -129,17 +129,17 @@ export function AIAssistantChat({
   };
 
   const ArabicPrompts = [
-    "كيف تبني خوادم سحابية فائقة الأداء؟",
-    "احتاج تصميم هيكلة سحابية لنظام مبيعات يتحمل ملايين المعاملات",
-    "كيف يمكنني تنسيق اجتماع عمل آمن مع أسامة؟",
-    "ما هي معايير تشفير ومزامنة البيانات دون اتصال بالإنترنت؟"
+    "أريد طلب تسعير لمشروع جديد",
+    "احتاج تصميم هيكلة سحابية لنظام مبيعات",
+    "كيف يمكنني التواصل مع أسامة عبر الواتساب؟",
+    "لدي فكرة تطبيق وأريد استشارة معمارية"
   ];
 
   const EnglishPrompts = [
-    "How to clear Django database N+1 bottlenecks?",
+    "I want to request pricing for a new project",
     "Design structure for high-throughput ecommerce servers",
-    "How can I book a secure meeting loop with Osama?",
-    "What are your core security frameworks for API endpoints?"
+    "How can I contact Osama on WhatsApp?",
+    "I have an app idea and need architectural consulting"
   ];
 
   const suggestChips = lang === "ar" ? ArabicPrompts : EnglishPrompts;
@@ -575,30 +575,53 @@ export function AIAssistantChat({
 
             {/* Input form - ONLY visible when "chat" tab is selected, otherwise we show a beautiful action footer */}
             {activeTab === "chat" ? (
-              <form 
-                onSubmit={handleFormSubmit}
-                className="p-3 bg-zinc-950/95 border-t border-zinc-900/60 flex items-center gap-2"
-              >
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={
-                    lang === "ar" 
-                      ? (customPlaceholderAr || "اسأل مستشاري الأنظمة والذكاء...") 
-                      : (customPlaceholderEn || "Ask OSERA Systems Co-pilot...")
-                  }
-                  disabled={isLoading}
-                  className="flex-1 bg-zinc-900 border border-zinc-800/80 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500/50 placeholder-zinc-500 disabled:opacity-50"
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading || !inputValue.trim()}
-                  className="p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white disabled:pointer-events-none disabled:opacity-30 active:scale-95 transition-all cursor-pointer shrink-0"
+              <div className="flex flex-col border-t border-zinc-900/60 bg-zinc-950/95">
+                <form 
+                  onSubmit={handleFormSubmit}
+                  className="p-3 flex items-center gap-2"
                 >
-                  <Send className="h-3.5 w-3.5" />
-                </button>
-              </form>
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={
+                      lang === "ar" 
+                        ? (customPlaceholderAr || "اسأل مستشاري الأنظمة والذكاء...") 
+                        : (customPlaceholderEn || "Ask OSERA Systems Co-pilot...")
+                    }
+                    disabled={isLoading}
+                    className="flex-1 bg-zinc-900 border border-zinc-800/80 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500/50 placeholder-zinc-500 disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading || !inputValue.trim()}
+                    className="p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white disabled:pointer-events-none disabled:opacity-30 active:scale-95 transition-all cursor-pointer shrink-0"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                  </button>
+                </form>
+                {/* Fixed Conversion Action Buttons */}
+                <div className="px-3 pb-3 flex gap-2 overflow-x-auto no-scrollbar">
+                  <a 
+                    href="https://wa.me/201066906132?text=أهلاً م. أسامة، أريد طلب تسعير وتفاصيل عن مشروع جديد..."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-500/30 rounded-lg px-2 py-1.5 text-[10px] font-bold transition-colors whitespace-nowrap"
+                  >
+                    <Phone className="h-3 w-3" />
+                    {lang === "ar" ? "طلب تسعير (واتساب)" : "Request Quote (WA)"}
+                  </a>
+                  <a 
+                    href="https://wa.me/201066906132?text=أهلاً م. أسامة، أريد التواصل بخصوص عمل أو مشروع..."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-600 rounded-lg px-2 py-1.5 text-[10px] font-bold transition-colors whitespace-nowrap"
+                  >
+                    <MessageCircle className="h-3 w-3" />
+                    {lang === "ar" ? "تواصل مباشر" : "Direct Contact"}
+                  </a>
+                </div>
+              </div>
             ) : (
               <div className="p-3 bg-zinc-950/95 border-t border-zinc-900/60 flex items-center justify-between text-[10px] text-zinc-500 shrink-0 select-none">
                 <span className="flex items-center gap-1">
