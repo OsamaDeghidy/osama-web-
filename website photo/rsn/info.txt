@@ -1,0 +1,16 @@
+Next.js & Supabase Event Management Platform | RSN Alarabiya
+My role. Full-Stack Web Developer
+
+Project description.
+
+Developed a premium, high-performance web application for RSN Alarabiya, a leading crowd management and event security firm in Saudi Arabia. Built using Next.js, React, Tailwind CSS, and Framer Motion, with Supabase (PostgreSQL) handling dynamic content. Designed and implemented fully responsive services and equipment grid systems featuring custom gold-bordered layouts, smooth animations, and dynamic routing. Managed database migrations and Row-Level Security (RLS) policies, delivering a secure, luxurious, and SEO-optimized user experience.
+
+
+Skills and deliverables
+
+Next.js
+Tailwind CSS
+React
+Database Integration
+Supabase
+Published on Jun 22, 2026

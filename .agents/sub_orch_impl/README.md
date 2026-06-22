@@ -1,0 +1,2 @@
+# Implementation Sub-Orchestrator Workspace
+This directory contains coordination files for the Implementation Track.

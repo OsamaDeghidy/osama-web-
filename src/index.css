@@ -1,47 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;550;700;850;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cairo:wght@300;400;550;700;850;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Plus Jakarta Sans", "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cinzel", Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Premium Royal Gold Palette mapped to cyan is safe, solid, and perfect */
-  --color-cyan-50: #fbf8f0;
-  --color-cyan-100: #f4ecce;
-  --color-cyan-200: #e9d99d;
-  --color-cyan-300: #dec36c;
-  --color-cyan-400: #d4af37; /* Clean Gold #d4af37 */
-  --color-cyan-500: #bfa02e;
-  --color-cyan-600: #9f8221;
-  --color-cyan-700: #806518;
-  --color-cyan-800: #604a11;
-  --color-cyan-900: #42320a;
-  --color-cyan-950: #120e03; /* Deep bronze/gold shadow */
+  /* Explicit Gold Palette */
+  --color-gold-50: #fbf8f0;
+  --color-gold-100: #f4ecce;
+  --color-gold-200: #e9d99d;
+  --color-gold-300: #dec36c;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #bfa02e;
+  --color-gold-600: #9f8221;
+  --color-gold-700: #806518;
+  --color-gold-800: #604a11;
+  --color-gold-900: #42320a;
+  --color-gold-950: #120e03;
 
-  /* Map sky and teal too for complete design safety */
-  --color-sky-50: #fbf8f0;
-  --color-sky-100: #f4ecce;
-  --color-sky-200: #e9d99d;
-  --color-sky-300: #dec36c;
-  --color-sky-400: #d4af37;
-  --color-sky-500: #bfa02e;
-  --color-sky-600: #9f8221;
-  --color-sky-700: #806518;
-  --color-sky-800: #604a11;
-  --color-sky-900: #42320a;
-  --color-sky-950: #120e03;
-
-  --color-teal-50: #fbf8f0;
-  --color-teal-100: #f4ecce;
-  --color-teal-200: #e9d99d;
-  --color-teal-300: #dec36c;
-  --color-teal-400: #d4af37;
-  --color-teal-500: #bfa02e;
-  --color-teal-600: #9f8221;
-  --color-teal-700: #806518;
-  --color-teal-800: #604a11;
-  --color-teal-900: #42320a;
-  --color-teal-950: #120e03;
+  /* Explicit Platinum Palette */
+  --color-platinum-50: #fafafa;
+  --color-platinum-100: #f4f4f5;
+  --color-platinum-200: #e4e4e7;
+  --color-platinum-300: #d4d4d8;
+  --color-platinum-400: #a1a1aa;
+  --color-platinum-500: #71717a;
+  --color-platinum-600: #52525b;
+  --color-platinum-700: #3f3f46;
+  --color-platinum-800: #27272a;
+  --color-platinum-900: #18181b;
+  --color-platinum-950: #09090b;
 }
 
 /* Custom scrollbar configurations */
@@ -86,13 +75,13 @@
 }
 
 @layer utilities {
-  .glow-cyan {
+  .glow-gold {
     box-shadow: 0 0 50px -10px rgba(212, 175, 55, 0.25);
   }
-  .glow-blue {
-    box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.25);
+  .glow-platinum {
+    box-shadow: 0 0 50px -10px rgba(228, 228, 231, 0.25);
   }
-  .glow-purple {
+  .glow-gold-dim {
     box-shadow: 0 0 50px -10px rgba(212, 175, 55, 0.15);
   }
   .perspective-1000 {
@@ -109,6 +98,11 @@
     animation: grid-slide-forward 40s linear infinite;
     image-rendering: pixelated;
   }
+}
+
+/* Base header styles: use serif font family */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
 }
 
 @keyframes grid-slide-forward {

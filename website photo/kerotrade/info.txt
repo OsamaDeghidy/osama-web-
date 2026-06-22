@@ -1,0 +1,29 @@
+1️⃣ Project Title (عنوان المشروع) *
+(الحد الأقصى: 70 حرفاً - اختر أحد الخيارات التالية)
+
+الخيار 1 (موصى به): Premium Financial Trading LMS & Analytics Platform (50 حرفاً)
+الخيار 2: Kero Trade E-Learning Platform & Course Player (47 حرفاً)
+الخيار 3 (تقني أكثر): Next.js 16 Secure Trading LMS with 3D Visuals (45 حرفاً)
+2️⃣ Your Role (دورك في المشروع)
+(الحد الأقصى: 100 حرف)
+
+Full-Stack Next.js Developer & UI/UX Designer (45 حرفاً)
+3️⃣ Project Description (وصف المشروع) *
+(الحد الأقصى: 600 حرف - اختر الوصف الأنسب لطريقة تقديمك لنفسك)
+
+الخيار 1 (يركز على الحماية والأداء التقني):
+
+Developed a premium, dual-language (AR/EN) trading LMS for Kero Trade. Engineered a secure video streaming player integrating Bunny CDN (HLS/Signed URLs) with dynamic watermark overlays to prevent piracy. Implemented single-session auth via NextAuth, a high-performance MongoDB/Mongoose backend, and an admin panel for course CRUD, order verification, student analytics, and direct messaging. Styled with modern Tailwind CSS v4, Cairo/Inter typography, and interactive Framer Motion micro-animations. (489 حرفاً - متبقي 111 حرفاً)
+
+الخيار 2 (يركز على القيمة التجارية وتجربة المستخدم):
+
+Built a high-end trading academy and analytics platform for Kero Trade. Designed a modern dark-mode interface using Tailwind CSS and Framer Motion for smooth micro-animations. Engineered a secure course player using Bunny CDN to eliminate video downloads and piracy. Created a custom admin panel for seamless course management, invoice review, and student tracking. Implemented secure authentication and multi-lingual support, resulting in a streamlined onboarding process and zero video leaks. (494 حرفاً - متبقي 106 حرفاً)
+
+4️⃣ Skills and Deliverables (المهارات والمخرجات) *
+(اختر هذه الـ 5 مهارات وهي الأكثر طلباً وبحثاً على Upwork لهذا النوع من المشاريع)
+
+Next.js
+Full-Stack Development
+Learning Management System (LMS)
+Bunny CDN Integration
+Web Application Security

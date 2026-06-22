@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Suspense, lazy } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, useMotionTemplate } from "motion/react";
 import {
   Terminal,
@@ -47,9 +47,9 @@ import {
   CaseStudy
 } from "./types";
 
-import { ThreeDBackground } from "./components/ThreeDBackground";
-import { ParticleSeparator } from "./components/ParticleSeparator";
-import { Hero3DScene } from "./components/Hero3DScene";
+const ThreeDBackground = lazy(() => import("./components/ThreeDBackground").then(module => ({ default: module.ThreeDBackground })));
+const ParticleSeparator = lazy(() => import("./components/ParticleSeparator").then(module => ({ default: module.ParticleSeparator })));
+const Hero3DScene = lazy(() => import("./components/Hero3DScene").then(module => ({ default: module.Hero3DScene })));
 import { CodeDiffViewer } from "./components/CodeDiffViewer";
 import { AIAssistantChat } from "./components/AIAssistantChat";
 
@@ -63,7 +63,7 @@ import ecommerceCheckoutImg from "./assets/images/ecommerce_checkout_17811244100
 import mobileOfflineImg from "./assets/images/mobile_offline_1781124422469.png";
 import saasDashboardImg from "./assets/images/saas_dashboard_1781124434321.png";
 import osamaAvatarImg from "./assets/images/osama_avatar_1781124448446.png";
-import osamaRealisticAvatarImg from "./assets/images/osama_realistic_avatar_1781223721581.jpg";
+const osamaRealisticAvatarImg = "/portfolio/poster.png";
 import safarAvatarImg from "./assets/images/safar_avatar_1781124464403.png";
 import ryanAvatarImg from "./assets/images/ryan_avatar_1781124475112.png";
 import saraAvatarImg from "./assets/images/sara_avatar_1781124487502.png";
@@ -442,8 +442,8 @@ export default function App() {
   const [projectType, setProjectType] = useState("Custom Python Backend / API Engine");
   const [targetBudget, setTargetBudget] = useState("$5,000 - $10,000 (Mid-Scale Enterprise)");
   const [targetTimeline, setTargetTimeline] = useState("4 to 6 Weeks");
-  const [blueprintLoading, setBlueprintLoading] = useState(false);
-  const [blueprintResult, setBlueprintResult] = useState<BlueprintResponse | null>(null);
+  const [stoneprintLoading, setBlueprintLoading] = useState(false);
+  const [stoneprintResult, setBlueprintResult] = useState<BlueprintResponse | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   // Prefill templates for AI Planner
@@ -596,7 +596,7 @@ export default function App() {
     setBlueprintLoading(true);
     setBlueprintResult(null);
     try {
-      const response = await fetch("/api/blueprint", {
+      const response = await fetch("/api/stoneprint", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -633,7 +633,7 @@ export default function App() {
         },
         architectureHighlights: ["Endpoint issue detected"],
         timelinePhases: [],
-        expertAdvice: "Could not establish server connection to process blueprint. Confirm dev server execution.",
+        expertAdvice: "Could not establish server connection to process stoneprint. Confirm dev server execution.",
         estimatedComplexity: "Undetermined"
       });
     } finally {
@@ -651,10 +651,12 @@ export default function App() {
   };
 
   return (
-    <div dir={t.dir} className="min-h-screen bg-[#050505] text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-400 antialiased relative overflow-x-hidden">
+    <div dir={t.dir} className="min-h-screen bg-[#050505] text-white font-sans selection:bg-amber-500/30 selection:text-amber-400 antialiased relative overflow-x-hidden">
       
       {/* Immersive 3D Interactive Canvas Background */}
-      <ThreeDBackground />
+      <Suspense fallback={null}>
+        <ThreeDBackground />
+      </Suspense>
       
       {/* 3D Moving Perspective Grid Floor */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" style={{ perspective: "800px" }}>
@@ -672,33 +674,33 @@ export default function App() {
       {/* Floating 3D Cosmic glassmorphic elements responding to responsive mouse parallax coordinates */}
       <motion.div
         style={{ x: floatX1, y: floatY1, rotate: 15 }}
-        className="absolute top-48 left-[8%] w-20 h-20 rounded-3xl bg-gradient-to-tr from-cyan-500/15 to-blue-500/5 border border-cyan-500/25 shadow-[0_0_20px_rgba(6,182,212,0.1)] backdrop-blur-[3px] pointer-events-none z-10 hidden lg:block"
+        className="absolute top-48 left-[8%] w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500/15 to-stone-500/5 border border-amber-500/25 shadow-[0_0_20px_rgba(6,182,212,0.1)] backdrop-blur-[3px] pointer-events-none z-10 hidden lg:block"
       />
       <motion.div
         style={{ x: floatX2, y: floatY2, rotate: -25 }}
-        className="absolute bottom-[20%] right-[10%] w-32 h-32 rounded-3xl bg-gradient-to-br from-indigo-500/15 to-purple-500/5 border border-indigo-500/25 shadow-[0_0_30px_rgba(99,102,241,0.1)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
+        className="absolute bottom-[20%] right-[10%] w-32 h-32 rounded-3xl bg-gradient-to-br from-zinc-500/15 to-yellow-500/5 border border-zinc-500/25 shadow-[0_0_30px_rgba(99,102,241,0.1)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
       />
       <motion.div
         style={{ x: floatX3, y: floatY3 }}
-        className="absolute top-1/3 right-[12%] w-16 h-16 rounded-full bg-gradient-to-r from-blue-500/5 to-cyan-500/15 border border-blue-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)] backdrop-blur-[3px] pointer-events-none z-10 hidden lg:block"
+        className="absolute top-1/3 right-[12%] w-16 h-16 rounded-full bg-gradient-to-r from-stone-500/5 to-amber-500/15 border border-stone-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)] backdrop-blur-[3px] pointer-events-none z-10 hidden lg:block"
       />
       <motion.div
         style={{ x: floatX2, y: floatY1, rotate: 45 }}
-        className="absolute top-[50%] left-[5%] w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20 shadow-[0_0_25px_rgba(168,85,247,0.08)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
+        className="absolute top-[50%] left-[5%] w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-500/10 to-transparent border border-yellow-500/20 shadow-[0_0_25px_rgba(168,85,247,0.08)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
       />
       <motion.div
         style={{ x: floatX1, y: floatY3, rotate: -15 }}
-        className="absolute top-[70%] right-[6%] w-28 h-28 rounded-3xl bg-gradient-to-tr from-blue-500/10 to-cyan-500/5 border border-blue-500/15 shadow-[0_0_30px_rgba(59,130,246,0.05)] backdrop-blur-[1px] pointer-events-none z-10 hidden lg:block"
+        className="absolute top-[70%] right-[6%] w-28 h-28 rounded-3xl bg-gradient-to-tr from-stone-500/10 to-amber-500/5 border border-stone-500/15 shadow-[0_0_30px_rgba(59,130,246,0.05)] backdrop-blur-[1px] pointer-events-none z-10 hidden lg:block"
       />
       <motion.div
         style={{ x: floatX3, y: floatY2, rotate: 10 }}
-        className="absolute top-[85%] left-[12%] w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500/10 to-indigo-500/5 border border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.08)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
+        className="absolute top-[85%] left-[12%] w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500/10 to-zinc-500/5 border border-amber-500/20 shadow-[0_0_20px_rgba(6,182,212,0.08)] backdrop-blur-[2px] pointer-events-none z-10 hidden lg:block"
       />
 
       {/* Decorative ambient background glows & floating depth items */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-900/10 rounded-full blur-[120px] -mr-[13rem] -mt-[13rem] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px] -ml-48 -mb-48 pointer-events-none" />
-      <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-purple-900/5 rounded-full blur-[110px] pointer-events-none animate-pulse" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-900/10 rounded-full blur-[120px] -mr-[13rem] -mt-[13rem] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-stone-900/10 rounded-full blur-[100px] -ml-48 -mb-48 pointer-events-none" />
+      <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-yellow-900/5 rounded-full blur-[110px] pointer-events-none animate-pulse" />
 
       {/* Floating Header */}
       <header className="sticky top-0 z-50 w-full border-b border-slate-900/60 bg-[#050505]/70 backdrop-blur-md">
@@ -713,11 +715,11 @@ export default function App() {
               />
             ) : (
               <div className="text-2xl font-black tracking-[-0.075em] flex items-center gap-1 text-white">
-                {profile.logoText || "OSERA"} <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full inline-block animate-pulse"></span>
+                {profile.logoText || "OSERA"} <span className="w-1.5 h-1.5 bg-amber-400 rounded-full inline-block animate-pulse"></span>
               </div>
             )}
             <div className="hidden sm:block">
-              <span className="ml-[6px] text-[9px] uppercase font-bold tracking-[0.23em] text-cyan-550 block">
+              <span className="ml-[6px] text-[9px] uppercase font-bold tracking-[0.23em] text-amber-550 block">
                 Digital Systems
               </span>
             </div>
@@ -727,7 +729,7 @@ export default function App() {
             {profile.showServices !== false && (
               <button
                 onClick={() => { setActiveTab("services"); }}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "services" ? "bg-zinc-800/80 text-cyan-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "services" ? "bg-zinc-800/80 text-amber-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
               >
                 {t.navServices}
               </button>
@@ -735,7 +737,7 @@ export default function App() {
             {profile.showCalculator !== false && (
               <button
                 onClick={() => { setActiveTab("calculator"); }}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "calculator" ? "bg-zinc-800/80 text-cyan-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "calculator" ? "bg-zinc-800/80 text-amber-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
               >
                 {t.navCalculator}
               </button>
@@ -743,7 +745,7 @@ export default function App() {
             {profile.showSandbox !== false && (
               <button
                 onClick={() => { setActiveTab("sandbox"); }}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "sandbox" ? "bg-zinc-800/80 text-cyan-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "sandbox" ? "bg-zinc-800/80 text-amber-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
               >
                 {t.navSandbox}
               </button>
@@ -751,7 +753,7 @@ export default function App() {
             {profile.showAiConsultant !== false && (
               <button
                 onClick={() => { setActiveTab("ai-consultant"); }}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "ai-consultant" ? "bg-zinc-800/80 text-cyan-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "ai-consultant" ? "bg-zinc-800/80 text-amber-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
               >
                 {t.navAiPlanner}
               </button>
@@ -759,7 +761,7 @@ export default function App() {
             {profile.showStory !== false && (
               <button
                 onClick={() => { setActiveTab("story"); }}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "story" ? "bg-zinc-800/80 text-cyan-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${activeTab === "story" ? "bg-zinc-800/80 text-amber-400 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"}`}
               >
                 {t.navStory}
               </button>
@@ -770,7 +772,7 @@ export default function App() {
             {/* Admin Portal Control */}
             <button
               onClick={() => setIsAdminOpen(true)}
-              className="px-3 py-1.5 border border-zinc-805 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#06b6d2] bg-cyan-950/10 hover:bg-cyan-950/30 hover:border-cyan-500/30 font-mono flex items-center gap-1.5 transition cursor-pointer"
+              className="px-3 py-1.5 border border-zinc-805 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#fbbf24] bg-amber-950/10 hover:bg-amber-950/30 hover:border-amber-500/30 font-mono flex items-center gap-1.5 transition cursor-pointer"
               title="Admin Portal Console"
             >
               <Lock className="h-3 w-3" />
@@ -780,7 +782,7 @@ export default function App() {
             {/* Dynamic Interactive Language Toggler */}
             <button
               onClick={() => setLang(lang === "ar" ? "en" : "ar")}
-              className="px-3.5 py-1.5 border border-cyan-800/40 rounded-full text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/20 hover:bg-cyan-950/50 transition-all flex items-center gap-1.5 cursor-pointer font-mono shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]"
+              className="px-3.5 py-1.5 border border-amber-800/40 rounded-full text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-950/20 hover:bg-amber-950/50 transition-all flex items-center gap-1.5 cursor-pointer font-mono shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]"
             >
               <Globe className="h-3 w-3 animate-spin duration-10000" />
               {lang === "ar" ? "English" : "العربية"}
@@ -791,7 +793,7 @@ export default function App() {
               onClick={() => { setActiveTab("ai-consultant"); }}
               className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 border border-slate-800 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] text-white hover:bg-white hover:text-black transition-all"
             >
-              <Sparkles className="h-3 w-3 text-cyan-400" />
+              <Sparkles className="h-3 w-3 text-amber-400" />
               {t.initiateProtocol}
             </a>
 
@@ -854,22 +856,22 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative px-6 py-12 md:py-24 mx-auto max-w-7xl lg:px-8 border-b border-zinc-900/40 overflow-hidden">
         {/* Ambient background glows for premium modern feel */}
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-cyan-500/10 blur-[90px] pointer-events-none select-none animate-pulse duration-[6000ms]" />
-        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none select-none animate-pulse duration-[8000ms]" />
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/10 blur-[90px] pointer-events-none select-none animate-pulse duration-[6000ms]" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 rounded-full bg-zinc-500/5 blur-[120px] pointer-events-none select-none animate-pulse duration-[8000ms]" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           <div className="lg:col-span-8 space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-[10px] font-mono text-cyan-400 mb-2 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-[10px] font-mono text-amber-400 mb-2 uppercase tracking-widest">
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-cyan-400 opacity-40"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-amber-400 opacity-40"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
               </span>
               {t.heroBadge}
             </div>
             
             <h1 className="text-[52px] sm:text-[84px] lg:text-[102px] leading-[0.88] font-black tracking-[-0.05em] text-white">
               {t.heroTitlePart1} <br/> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-stone-500 to-zinc-600">
                 {t.heroTitlePart2}
               </span>
             </h1>
@@ -884,7 +886,7 @@ export default function App() {
                   setActiveTab("ai-consultant");
                   document.getElementById("interactive-planner-anchor")?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-6 py-3.5 text-xs uppercase font-extrabold tracking-widest text-[#050505] transition-all font-sans shadow-lg shadow-cyan-950/20 active:scale-95 cursor-pointer"
+                className="flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-stone-600 hover:from-amber-400 hover:to-stone-500 px-6 py-3.5 text-xs uppercase font-extrabold tracking-widest text-[#050505] transition-all font-sans shadow-lg shadow-amber-950/20 active:scale-95 cursor-pointer"
               >
                 <span>{t.buildProjectBlueprint}</span>
                 <Sparkles className="h-4 w-4" />
@@ -901,11 +903,11 @@ export default function App() {
               </button>
               <button
                 onClick={() => setChatOpen(true)}
-                className="flex items-center gap-2 rounded-full bg-zinc-950 border border-cyan-500/20 focus:border-cyan-400 hover:border-cyan-400 px-6 py-3.5 text-xs uppercase font-extrabold tracking-widest text-cyan-450 hover:text-cyan-300 transition cursor-pointer"
+                className="flex items-center gap-2 rounded-full bg-zinc-950 border border-amber-500/20 focus:border-amber-400 hover:border-amber-400 px-6 py-3.5 text-xs uppercase font-extrabold tracking-widest text-amber-450 hover:text-amber-300 transition cursor-pointer"
               >
                 <div className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-450"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-450"></span>
                 </div>
                 <span>{t.aiCopilotButton}</span>
               </button>
@@ -936,7 +938,7 @@ export default function App() {
                     <button
                       key={idx}
                       onClick={() => triggerChatWithQuery(label)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.8 rounded-full bg-zinc-950/40 hover:bg-zinc-900 text-[11px] text-zinc-400 hover:text-cyan-300 border border-zinc-900 hover:border-cyan-800/20 transition cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.8 rounded-full bg-zinc-950/40 hover:bg-zinc-900 text-[11px] text-zinc-400 hover:text-amber-300 border border-zinc-900 hover:border-amber-800/20 transition cursor-pointer"
                     >
                       <span>{label}</span>
                     </button>
@@ -947,7 +949,9 @@ export default function App() {
           </div>
 
           <div className="lg:col-span-4 h-full flex flex-col gap-4 py-8">
-            <Hero3DScene />
+            <Suspense fallback={<div className="h-[400px] w-full animate-pulse bg-slate-900/50 rounded-2xl"></div>}>
+              <Hero3DScene />
+            </Suspense>
           </div>
         </div>
 
@@ -976,7 +980,9 @@ export default function App() {
       <div id="interactive-planner-anchor" className="scroll-mt-24" />
 
       {/* Subtle particle separator */}
-      <ParticleSeparator />
+      <Suspense fallback={<div className="h-24 w-full"></div>}>
+        <ParticleSeparator />
+      </Suspense>
 
       {/* Section Tab bar */}
       <section className="mx-auto max-w-7xl px-6 lg:px-8 py-10">
@@ -984,7 +990,7 @@ export default function App() {
           {profile.showServices !== false && (
             <button
               onClick={() => setActiveTab("services")}
-              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "services" ? "border-cyan-400 text-cyan-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
+              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "services" ? "border-amber-400 text-amber-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
             >
               <Layers className="h-4 w-4" />
               1. Services
@@ -993,7 +999,7 @@ export default function App() {
           {profile.showCalculator !== false && (
             <button
               onClick={() => setActiveTab("calculator")}
-              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "calculator" ? "border-cyan-400 text-cyan-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
+              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "calculator" ? "border-amber-400 text-amber-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
             >
               <DollarSign className="h-4 w-4" />
               2. Budget Config
@@ -1002,7 +1008,7 @@ export default function App() {
           {profile.showSandbox !== false && (
             <button
               onClick={() => setActiveTab("sandbox")}
-              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "sandbox" ? "border-cyan-400 text-cyan-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
+              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "sandbox" ? "border-amber-400 text-amber-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
             >
               <Terminal className="h-4 w-4" />
               3. Django Code
@@ -1011,7 +1017,7 @@ export default function App() {
           {profile.showAiConsultant !== false && (
             <button
               onClick={() => setActiveTab("ai-consultant")}
-              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "ai-consultant" ? "border-cyan-400 text-cyan-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
+              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "ai-consultant" ? "border-amber-400 text-amber-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
             >
               <Sparkles className="h-4 w-4" />
               4. Live Advisor
@@ -1020,7 +1026,7 @@ export default function App() {
           {profile.showStory !== false && (
             <button
               onClick={() => setActiveTab("story")}
-              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "story" ? "border-cyan-400 text-cyan-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
+              className={`py-4 px-6 border-b-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === "story" ? "border-amber-400 text-amber-400 font-black" : "border-transparent text-slate-500 hover:text-zinc-200"}`}
             >
               <Award className="h-4 w-4" />
               5. Credentials
@@ -1059,7 +1065,7 @@ export default function App() {
                     >
                       <div>
                         <div className="flex items-center gap-3.5 mb-6">
-                          <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-cyan-400">
+                          <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-amber-950/40 border border-amber-800/50 text-amber-400">
                             {svc.iconName === "Terminal" && <Terminal className="h-5 w-5" />}
                             {svc.iconName === "ShoppingBag" && <ShoppingBag className="h-5 w-5" />}
                             {svc.iconName === "Smartphone" && <Smartphone className="h-5 w-5" />}
@@ -1086,7 +1092,7 @@ export default function App() {
                         <ul className="space-y-3">
                           {bullets.map((point, index) => (
                             <li key={index} className="flex gap-2.5 items-start text-xs text-zinc-400">
-                              <span className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-cyan-950 text-cyan-400">
+                              <span className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-amber-950 text-amber-400">
                                 <Check className="h-2.5 w-2.5" />
                               </span>
                               <span>{point}</span>
@@ -1104,7 +1110,7 @@ export default function App() {
                             setCalcTier(svc.id as any);
                             setActiveTab("calculator");
                           }}
-                          className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="text-xs font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           Calculate Budget <ArrowRight className="h-3.5 w-3.5" />
                         </button>
@@ -1118,7 +1124,7 @@ export default function App() {
               <div className="space-y-8 pt-8">
                 <div className="text-center max-w-xl mx-auto">
                   <h3 className="text-3xl font-black tracking-tight text-white uppercase">Proven Deployments</h3>
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.23em] font-bold mt-1.5">
+                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.23em] font-bold mt-1.5">
                     Enterprise results from production files
                   </p>
                 </div>
@@ -1133,6 +1139,12 @@ export default function App() {
                         glowColor="rgba(212, 175, 55, 0.12)"
                       >
                         <div>
+                          {cs.imageUrl && (
+                            <div className="mb-4 rounded-xl overflow-hidden border border-zinc-800/50 aspect-video relative group">
+                              <img src={cs.imageUrl} alt={cs.titleEn} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#09090c] to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                            </div>
+                          )}
                           <div className="flex items-center justify-between mb-4">
                             <span className="text-[9px] uppercase tracking-widest px-2 py-1 bg-zinc-900 border border-zinc-805 text-zinc-400 rounded-md font-mono">
                               {lang === "ar" ? cs.industryAr : cs.industryEn}
@@ -1239,7 +1251,7 @@ export default function App() {
               className="grid lg:grid-cols-12 gap-8"
             >
               {/* Left Config Panel */}
-              <div className="lg:col-span-7 bg-zinc-950/40 border border-zinc-900 p-8 rounded-2xl glow-blue space-y-8">
+              <div className="lg:col-span-7 bg-zinc-950/40 border border-zinc-900 p-8 rounded-2xl glow-stone space-y-8">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Scope Blueprint Configurator</h3>
                   <p className="text-sm text-zinc-400">
@@ -1264,7 +1276,7 @@ export default function App() {
                       <button
                         key={tier.id}
                         onClick={() => { setCalcTier(tier.id as any); }}
-                        className={`p-3 text-left rounded-xl transition-all border ${calcTier === tier.id ? "bg-cyan-950/20 border-cyan-800 text-cyan-300" : "bg-zinc-900/40 border-zinc-800/80 hover:bg-zinc-900 text-zinc-400"}`}
+                        className={`p-3 text-left rounded-xl transition-all border ${calcTier === tier.id ? "bg-amber-950/20 border-amber-800 text-amber-300" : "bg-zinc-900/40 border-zinc-800/80 hover:bg-zinc-900 text-zinc-400"}`}
                       >
                         <span className="block text-xs font-bold">{tier.label}</span>
                         <span className="text-[9px] opacity-70 block mt-0.5 font-mono">{tier.desc}</span>
@@ -1285,7 +1297,7 @@ export default function App() {
                         <button
                           key={feat.name}
                           onClick={() => { toggleFeature(feat.name); }}
-                          className={`flex items-start justify-between p-3.5 rounded-lg border text-left transition-all ${isSelected ? "bg-zinc-905 border-cyan-800/80 text-white" : "bg-zinc-950/70 border-zinc-900 text-zinc-500 hover:border-zinc-800"}`}
+                          className={`flex items-start justify-between p-3.5 rounded-lg border text-left transition-all ${isSelected ? "bg-zinc-905 border-amber-800/80 text-white" : "bg-zinc-950/70 border-zinc-900 text-zinc-500 hover:border-zinc-800"}`}
                         >
                           <div className="space-y-1">
                             <span className="text-xs font-semibold block">{feat.name}</span>
@@ -1293,7 +1305,7 @@ export default function App() {
                               +{feat.hours} expert engineering hours
                             </span>
                           </div>
-                          <div className={`mt-0.5 h-4 w-4 shrink-0 rounded flex items-center justify-center border ${isSelected ? "bg-cyan-500 border-cyan-500 text-zinc-950" : "border-zinc-800"}`}>
+                          <div className={`mt-0.5 h-4 w-4 shrink-0 rounded flex items-center justify-center border ${isSelected ? "bg-amber-500 border-amber-500 text-zinc-950" : "border-zinc-800"}`}>
                             {isSelected && <Check className="h-3 w-3 block stroke-[3]" />}
                           </div>
                         </button>
@@ -1305,7 +1317,7 @@ export default function App() {
                 {/* Clear and Simple timeline calculation */}
                 <div className="bg-[#0c0c10] p-4.5 rounded-xl border border-zinc-900">
                   <div className="flex gap-2 items-start">
-                    <Clock className="h-4.5 w-4.5 text-cyan-400 shrink-0 mt-0.5" />
+                    <Clock className="h-4.5 w-4.5 text-amber-400 shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-xs font-bold text-zinc-300">Deliverable Architecture Timeline</h4>
                       <p className="text-[11px] text-zinc-500 mt-0.5 leading-relaxed">
@@ -1320,7 +1332,7 @@ export default function App() {
               <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
                 <div className="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest block mb-1">
+                    <span className="text-[10px] font-mono text-amber-500 uppercase tracking-widest block mb-1">
                       REAL-TIME SUMMARY ESTIMATION
                     </span>
                     <h3 className="text-xl font-bold text-white mb-6">Interactive Budget Sheet</h3>
@@ -1345,7 +1357,7 @@ export default function App() {
                       </div>
                       <div className="flex justify-between items-center py-2.5 text-sm">
                         <span className="text-zinc-500">Standard Code Assurance</span>
-                        <span className="text-cyan-400 text-xs px-2 py-0.5 bg-cyan-950/30 border border-cyan-800/40 rounded-full font-mono uppercase font-black">
+                        <span className="text-amber-400 text-xs px-2 py-0.5 bg-amber-950/30 border border-amber-800/40 rounded-full font-mono uppercase font-black">
                           INCLUDED
                         </span>
                       </div>
@@ -1366,7 +1378,7 @@ export default function App() {
                         <span className="text-[10px] text-zinc-500 uppercase tracking-widest block mb-0.5">
                           Duration
                         </span>
-                        <span className="text-lg font-bold font-mono text-cyan-400">
+                        <span className="text-lg font-bold font-mono text-amber-400">
                           {calcMetrics.weeks} WMD Weeks
                         </span>
                       </div>
@@ -1397,7 +1409,7 @@ export default function App() {
                           setActiveTab("ai-consultant");
                           document.getElementById("interactive-planner-anchor")?.scrollIntoView({ behavior: "smooth" });
                         }}
-                        className="w-full py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 font-bold uppercase text-[11px] tracking-widest text-[#09090b] transition-all flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer"
+                        className="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 font-bold uppercase text-[11px] tracking-widest text-[#09090b] transition-all flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer"
                       >
                         <span>{lang === "ar" ? "تعديل وطرح الخطة الفنية بالذكاء الاصطناعي" : "Draft Technical Plan with AI"}</span>
                         <Sparkles className="h-4 w-4" />
@@ -1407,7 +1419,7 @@ export default function App() {
                         href={`https://wa.me/20${profile.whatsapp}?text=${encodeURIComponent(
                           lang === "ar" 
                             ? `مرحباً أسامة إسماعيل، قمت بتقدير الميزانية لمشروعي عبر حاسبة الأنظمة:\n\n- فئة النظام: ${calcTier}\n- التكلفة التقديرية: $${calcMetrics.price.toLocaleString()}\n- فترة الإنجاز المتوقعة: ${calcMetrics.weeks} أسابيع\n- الخصائص والمواصفات المختارة:\n${featuresSelected.map(f => `  • ${f}`).join("\n")}\n\nيرجى مراجعة التفاصيل لتأكيد بدء العمل على المشروع.`
-                            : `Hello Osama Ismail, I calculated a custom project blueprint on your web platform:\n\n- Project Class: ${calcTier}\n- Estimated Cost: $${calcMetrics.price.toLocaleString()}\n- Expected Timeline: ${calcMetrics.weeks} WMD Weeks\n- Selected Specs:\n${featuresSelected.map(f => `  • ${f}`).join("\n")}\n\nLet's coordinate starting this project!`
+                            : `Hello Osama Ismail, I calculated a custom project stoneprint on your web platform:\n\n- Project Class: ${calcTier}\n- Estimated Cost: $${calcMetrics.price.toLocaleString()}\n- Expected Timeline: ${calcMetrics.weeks} WMD Weeks\n- Selected Specs:\n${featuresSelected.map(f => `  • ${f}`).join("\n")}\n\nLet's coordinate starting this project!`
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -1442,7 +1454,7 @@ export default function App() {
               className="space-y-12"
             >
               <div className="max-w-3xl mx-auto text-center space-y-3">
-                <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.25em] font-black bg-cyan-950/30 px-3 py-1.5 border border-cyan-900/40 rounded-full">
+                <span className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.25em] font-black bg-amber-950/30 px-3 py-1.5 border border-amber-900/40 rounded-full">
                   {lang === "ar" ? "حقيبة الأنظمة والحلول الحية للمؤسسات" : "Vetted Commercial Production Systems"}
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
@@ -1461,7 +1473,7 @@ export default function App() {
                 {/* 1. Projects Portfolio Panel (8/12 Columns) */}
                 <div className="lg:col-span-8 space-y-6">
                   <h3 className="text-xs font-mono font-black text-white uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-cyan-455 animate-ping" />
+                    <span className="w-2 h-2 rounded-full bg-amber-455 animate-ping" />
                     {lang === "ar" ? "الأنظمة والمنصات المنشورة حياً" : "Live Corporate Deployments Ledger"}
                   </h3>
 
@@ -1474,7 +1486,7 @@ export default function App() {
                       >
                         <div className="space-y-4">
                           <div className="flex justify-between items-start">
-                            <span className="px-2.5 py-0.5 rounded text-[8px] font-mono font-black border border-cyan-800/40 bg-cyan-950/20 text-cyan-300 uppercase tracking-widest">
+                            <span className="px-2.5 py-0.5 rounded text-[8px] font-mono font-black border border-amber-800/40 bg-amber-950/20 text-amber-300 uppercase tracking-widest">
                               {proj.category || "Cloud App"}
                             </span>
                             <span className="text-[9px] font-mono text-emerald-400 flex items-center gap-1">
@@ -1484,7 +1496,7 @@ export default function App() {
                           </div>
 
                           <div className="space-y-1.5">
-                            <h4 className="text-base font-black text-white tracking-tight uppercase group-hover:text-cyan-400 transition-colors">
+                            <h4 className="text-base font-black text-white tracking-tight uppercase group-hover:text-amber-400 transition-colors">
                               {proj.title}
                             </h4>
                             <p className="text-xs text-zinc-400 leading-relaxed font-light min-h-[38px]">
@@ -1501,7 +1513,7 @@ export default function App() {
                             href={proj.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-bold text-cyan-400 hover:text-cyan-300 transition-all font-sans"
+                            className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-bold text-amber-400 hover:text-amber-300 transition-all font-sans"
                           >
                             <span>{lang === "ar" ? "زيارة المنصة" : "Launch Engine"}</span>
                             <ExternalLink className="h-3 w-3" />
@@ -1532,7 +1544,7 @@ export default function App() {
                       </div>
                       <div>
                         <h4 className="text-xs font-black text-white uppercase">{profile.founderName || "Osama Esmael"}</h4>
-                        <span className="text-[9px] text-cyan-400 font-mono block tracking-wider uppercase">
+                        <span className="text-[9px] text-amber-400 font-mono block tracking-wider uppercase">
                           {lang === "ar" ? "منسق وقائد الإنتاج" : "Principal Systems Architect"}
                         </span>
                       </div>
@@ -1563,10 +1575,10 @@ export default function App() {
                         href={profile.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-blue-950/20 hover:bg-blue-950/40 border border-blue-900/30 hover:border-blue-500/40 rounded-2xl flex items-center justify-between group transition-all duration-300"
+                        className="p-3 bg-stone-950/20 hover:bg-stone-950/40 border border-stone-900/30 hover:border-stone-500/40 rounded-2xl flex items-center justify-between group transition-all duration-300"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="h-8 w-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-zinc-950 transition-colors">
+                          <div className="h-8 w-8 rounded-xl bg-stone-500/10 flex items-center justify-center text-stone-400 group-hover:bg-stone-500 group-hover:text-zinc-950 transition-colors">
                             <Link2 className="h-4 w-4" />
                           </div>
                           <div>
@@ -1582,10 +1594,10 @@ export default function App() {
                         href={profile.nafezly}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-zinc-950/40 hover:bg-zinc-900/40 border border-zinc-850 hover:border-cyan-500/40 rounded-2xl flex items-center justify-between group transition-all duration-300"
+                        className="p-3 bg-zinc-950/40 hover:bg-zinc-900/40 border border-zinc-850 hover:border-amber-500/40 rounded-2xl flex items-center justify-between group transition-all duration-300"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="h-8 w-8 rounded-xl bg-cyan-550/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-zinc-950 transition-colors">
+                          <div className="h-8 w-8 rounded-xl bg-amber-550/10 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-zinc-950 transition-colors">
                             <Briefcase className="h-4 w-4" />
                           </div>
                           <div>
@@ -1659,10 +1671,10 @@ export default function App() {
                           href={profile.indeed}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-blue-950/15 hover:bg-blue-950/30 border border-blue-900/30 rounded-2xl flex items-center justify-between group transition-all duration-300"
+                          className="p-3 bg-stone-950/15 hover:bg-stone-950/30 border border-stone-900/30 rounded-2xl flex items-center justify-between group transition-all duration-300"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="h-8 w-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-zinc-950 transition-colors">
+                            <div className="h-8 w-8 rounded-xl bg-stone-500/10 flex items-center justify-center text-stone-400 group-hover:bg-stone-400 group-hover:text-zinc-950 transition-colors">
                               <Globe className="h-4 w-4" />
                             </div>
                             <div>
@@ -1719,7 +1731,7 @@ export default function App() {
 
               {/* Prefill templates helper */}
               <div className="space-y-3">
-                <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#06b6d2] text-center">
+                <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#fbbf24] text-center">
                   Prefill consultation templates to speed up review:
                 </h4>
                 <div className="grid md:grid-cols-3 gap-4">
@@ -1727,13 +1739,13 @@ export default function App() {
                     <button
                       key={tmpl.title}
                       onClick={() => handleUseTemplate(tmpl)}
-                      className="p-4 rounded-xl bg-zinc-950 border border-zinc-900 text-left hover:border-zinc-800 hover:bg-zinc-900/30 transition-all space-y-1.5 focus:outline-none focus:border-[#06b6d2]"
+                      className="p-4 rounded-xl bg-zinc-950 border border-zinc-900 text-left hover:border-zinc-800 hover:bg-zinc-900/30 transition-all space-y-1.5 focus:outline-none focus:border-[#fbbf24]"
                     >
                       <span className="block text-xs font-bold text-white font-sans">{tmpl.title}</span>
                       <p className="text-[11px] text-zinc-500 leading-relaxed font-light line-clamp-2">
                         {tmpl.text}
                       </p>
-                      <div className="flex justify-between items-center text-[10px] text-[#06b6d2] font-mono pt-1">
+                      <div className="flex justify-between items-center text-[10px] text-[#fbbf24] font-mono pt-1">
                         <span>{tmpl.timeline}</span>
                         <span>{tmpl.budget.split(" ")[0]}</span>
                       </div>
@@ -1755,7 +1767,7 @@ export default function App() {
                       <select
                         value={projectType}
                         onChange={(e) => setProjectType(e.target.value)}
-                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 font-sans"
+                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
                       >
                         <option>Custom Python Backend / API Engine</option>
                         <option>Enterprise E-Commerce Systems</option>
@@ -1771,7 +1783,7 @@ export default function App() {
                       <select
                         value={targetBudget}
                         onChange={(e) => setTargetBudget(e.target.value)}
-                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 font-sans"
+                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
                       >
                         <option>$3,500 - $5,000 (Basic Integration)</option>
                         <option>$5,000 - $10,000 (Mid-Scale Enterprise)</option>
@@ -1787,7 +1799,7 @@ export default function App() {
                       <select
                         value={targetTimeline}
                         onChange={(e) => setTargetTimeline(e.target.value)}
-                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 font-sans"
+                        className="w-full bg-zinc-900 border border-zinc-850 px-3.5 py-3 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
                       >
                         <option>3 to 4 Weeks</option>
                         <option>4 to 6 Weeks</option>
@@ -1803,7 +1815,7 @@ export default function App() {
                       <textarea
                         value={projectRequirements}
                         onChange={(e) => setProjectRequirements(e.target.value)}
-                        className="w-full h-44 bg-zinc-900/40 border border-zinc-850 rounded-xl p-4 text-xs font-sans text-zinc-300 focus:outline-none focus:border-cyan-500 leading-relaxed resize-none"
+                        className="w-full h-44 bg-zinc-900/40 border border-zinc-850 rounded-xl p-4 text-xs font-sans text-zinc-300 focus:outline-none focus:border-amber-500 leading-relaxed resize-none"
                         placeholder="e.g. Build an offline survey manager app with robust coordinate calculation synchronizing to SQL/Django API models..."
                       />
                     </div>
@@ -1812,10 +1824,10 @@ export default function App() {
                   <div className="pt-6 border-t border-zinc-900">
                     <button
                       onClick={handleBlueprintGeneration}
-                      disabled={blueprintLoading || !projectRequirements.trim()}
-                      className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:bg-zinc-850 disabled:from-zinc-900 disabled:to-zinc-900 disabled:text-zinc-650 disabled:border-zinc-850 font-extrabold uppercase text-xs tracking-widest text-[#09090b] transition-all flex items-center justify-center gap-2 active:scale-95"
+                      disabled={stoneprintLoading || !projectRequirements.trim()}
+                      className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-stone-600 hover:from-amber-400 hover:to-stone-500 disabled:bg-zinc-850 disabled:from-zinc-900 disabled:to-zinc-900 disabled:text-zinc-650 disabled:border-zinc-850 font-extrabold uppercase text-xs tracking-widest text-[#09090b] transition-all flex items-center justify-center gap-2 active:scale-95"
                     >
-                      {blueprintLoading ? (
+                      {stoneprintLoading ? (
                         <>
                           <div className="h-3 w-3 shrink-0 animate-spin rounded-full border border-zinc-950 border-t-transparent" />
                           <span>Architecting Blueprint Systems...</span>
@@ -1833,17 +1845,17 @@ export default function App() {
                 {/* Blueprint Render board */}
                 <div className="lg:col-span-7 flex flex-col justify-between">
                   <AnimatePresence mode="wait">
-                    {blueprintResult ? (
+                    {stoneprintResult ? (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.99 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        className="bg-zinc-950 border border-zinc-900 rounded-3xl p-8 glow-cyan flex-1 flex flex-col justify-between space-y-8"
+                        className="bg-zinc-950 border border-zinc-900 rounded-3xl p-8 glow-amber flex-1 flex flex-col justify-between space-y-8"
                       >
                         {/* Blueprint header */}
                         <div className="space-y-4">
                           <div className="flex justify-between items-start">
-                            <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest px-2.5 py-1 bg-cyan-950/20 border border-cyan-800/40 rounded-full font-bold">
+                            <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest px-2.5 py-1 bg-amber-950/20 border border-amber-800/40 rounded-full font-bold">
                               Technical Blueprint Draft
                             </span>
                             <span className="text-xs font-mono text-zinc-500">
@@ -1856,7 +1868,7 @@ export default function App() {
                               Assigned Project Title:
                             </span>
                             <h3 className="text-2xl font-black text-white bg-gradient-to-r from-zinc-50 via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
-                              {blueprintResult.projectTitle}
+                              {stoneprintResult.projectTitle}
                             </h3>
                           </div>
                         </div>
@@ -1864,27 +1876,27 @@ export default function App() {
                         {/* Technology Stack recommendations */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4.5">
                           <div className="p-4 bg-zinc-900/30 rounded-xl border border-zinc-900">
-                            <span className="text-[9px] text-[#06b6d2] font-mono uppercase tracking-widest block mb-1">
+                            <span className="text-[9px] text-[#fbbf24] font-mono uppercase tracking-widest block mb-1">
                               Frontend Core
                             </span>
                             <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                              {blueprintResult.recommendedStack.frontend}
+                              {stoneprintResult.recommendedStack.frontend}
                             </p>
                           </div>
                           <div className="p-4 bg-zinc-900/30 rounded-xl border border-zinc-900">
-                            <span className="text-[9px] text-[#06b6d2] font-mono uppercase tracking-widest block mb-1">
+                            <span className="text-[9px] text-[#fbbf24] font-mono uppercase tracking-widest block mb-1">
                               Backend & Database
                             </span>
                             <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                              {blueprintResult.recommendedStack.backend}
+                              {stoneprintResult.recommendedStack.backend}
                             </p>
                           </div>
                           <div className="p-4 bg-zinc-900/30 rounded-xl border border-zinc-900">
-                            <span className="text-[9px] text-[#06b6d2] font-mono uppercase tracking-widest block mb-1">
+                            <span className="text-[9px] text-[#fbbf24] font-mono uppercase tracking-widest block mb-1">
                               Infrastructure
                             </span>
                             <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                              {blueprintResult.recommendedStack.infrastructure}
+                              {stoneprintResult.recommendedStack.infrastructure}
                             </p>
                           </div>
                         </div>
@@ -1895,7 +1907,7 @@ export default function App() {
                             Crucial Security & Performance Gates:
                           </span>
                           <div className="grid gap-2.5">
-                            {blueprintResult.architectureHighlights.map((highlight, index) => (
+                            {stoneprintResult.architectureHighlights.map((highlight, index) => (
                               <div key={index} className="flex gap-2.5 items-start text-xs text-zinc-350 bg-[#0d0d12] p-3 rounded-xl border border-zinc-900 leading-relaxed">
                                 <ShieldCheck className="h-4.5 w-4.5 mt-0.5 text-emerald-400 shrink-0" />
                                 <span>{highlight}</span>
@@ -1905,17 +1917,17 @@ export default function App() {
                         </div>
 
                         {/* Interactive Timeline accordion */}
-                        {blueprintResult.timelinePhases && blueprintResult.timelinePhases.length > 0 && (
+                        {stoneprintResult.timelinePhases && stoneprintResult.timelinePhases.length > 0 && (
                           <div className="space-y-3">
                             <span className="text-[9px] uppercase font-bold text-zinc-500 tracking-wider block font-mono">
                               Development Phases Timeline:
                             </span>
                             <div className="grid gap-3">
-                              {blueprintResult.timelinePhases.map((phase, idx) => (
+                              {stoneprintResult.timelinePhases.map((phase, idx) => (
                                 <div key={idx} className="p-4 bg-zinc-900/10 border border-zinc-900 rounded-xl space-y-2">
                                   <div className="flex justify-between items-center text-xs">
                                     <span className="font-bold text-white font-sans">{phase.phase}</span>
-                                    <span className="font-mono text-cyan-400 text-[11px] font-semibold">{phase.duration}</span>
+                                    <span className="font-mono text-amber-400 text-[11px] font-semibold">{phase.duration}</span>
                                   </div>
                                   <div className="flex flex-wrap gap-1.5">
                                     {phase.deliverables.map((del, dIdx) => (
@@ -1931,19 +1943,19 @@ export default function App() {
                         )}
 
                         {/* Tech Advisory */}
-                        <div className="p-5 bg-cyan-950/10 border border-cyan-800/20 rounded-2xl">
-                          <label className="text-[9px] font-mono text-cyan-300 uppercase tracking-widest block mb-2">
+                        <div className="p-5 bg-amber-950/10 border border-amber-800/20 rounded-2xl">
+                          <label className="text-[9px] font-mono text-amber-300 uppercase tracking-widest block mb-2">
                             Systems Architect Handover Note:
                           </label>
                           <p className="text-xs text-zinc-300 leading-relaxed">
-                            {blueprintResult.expertAdvice}
+                            {stoneprintResult.expertAdvice}
                           </p>
                         </div>
 
                         <div className="pt-4 border-t border-zinc-900 flex flex-col md:flex-row gap-3.5 items-center justify-between text-[11px] font-mono">
                           <div className="flex items-center gap-4">
                             <span className="text-zinc-500">
-                              Estimated Complexity: <strong className="text-cyan-400">{blueprintResult.estimatedComplexity}</strong>
+                              Estimated Complexity: <strong className="text-amber-400">{stoneprintResult.estimatedComplexity}</strong>
                             </span>
                             <span className="text-zinc-400">
                               Status: <strong className="text-emerald-400 uppercase">Draft Generated</strong>
@@ -1953,8 +1965,8 @@ export default function App() {
                           <a
                             href={`https://wa.me/20${profile.whatsapp}?text=${encodeURIComponent(
                               lang === "ar"
-                                ? `مرحباً أسامة إسماعيل، لقد قمت بتوليد المخطط الفني لمشروعي باستخدام مستشار الذكاء الاصطناعي:\n\n- فئة النظام: ${projectType}\n- الميزانية المحددة: ${targetBudget}\n- فترة الإنجاز المطلوبة: ${targetTimeline}\n- عنوان المشروع المقترح: ${blueprintResult.projectTitle}\n- الواجهة الأمامية: ${blueprintResult.recommendedStack.frontend}\n- قواعد البيانات والخلفية: ${blueprintResult.recommendedStack.backend}\n- البنية التحتية: ${blueprintResult.recommendedStack.infrastructure}\n- تعقيد النظام: ${blueprintResult.estimatedComplexity}\n\nيرجى مراجعة المخطط الفني والتحقق من متطلبات الإطلاق.`
-                                : `Hello Osama Ismail, I generated a technical system blueprint using your AI system builder:\n\n- System Class: ${projectType}\n- Stated Budget: ${targetBudget}\n- Stated Timeline: ${targetTimeline}\n- Proposed Project Title: ${blueprintResult.projectTitle}\n- Frontend Stack: ${blueprintResult.recommendedStack.frontend}\n- Backend & Database: ${blueprintResult.recommendedStack.backend}\n- Infrastructure Stack: ${blueprintResult.recommendedStack.infrastructure}\n- Estimated Complexity: ${blueprintResult.estimatedComplexity}\n\nLet's discuss and schedule starting development!`
+                                ? `مرحباً أسامة إسماعيل، لقد قمت بتوليد المخطط الفني لمشروعي باستخدام مستشار الذكاء الاصطناعي:\n\n- فئة النظام: ${projectType}\n- الميزانية المحددة: ${targetBudget}\n- فترة الإنجاز المطلوبة: ${targetTimeline}\n- عنوان المشروع المقترح: ${stoneprintResult.projectTitle}\n- الواجهة الأمامية: ${stoneprintResult.recommendedStack.frontend}\n- قواعد البيانات والخلفية: ${stoneprintResult.recommendedStack.backend}\n- البنية التحتية: ${stoneprintResult.recommendedStack.infrastructure}\n- تعقيد النظام: ${stoneprintResult.estimatedComplexity}\n\nيرجى مراجعة المخطط الفني والتحقق من متطلبات الإطلاق.`
+                                : `Hello Osama Ismail, I generated a technical system stoneprint using your AI system builder:\n\n- System Class: ${projectType}\n- Stated Budget: ${targetBudget}\n- Stated Timeline: ${targetTimeline}\n- Proposed Project Title: ${stoneprintResult.projectTitle}\n- Frontend Stack: ${stoneprintResult.recommendedStack.frontend}\n- Backend & Database: ${stoneprintResult.recommendedStack.backend}\n- Infrastructure Stack: ${stoneprintResult.recommendedStack.infrastructure}\n- Estimated Complexity: ${stoneprintResult.estimatedComplexity}\n\nLet's discuss and schedule starting development!`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -1969,7 +1981,7 @@ export default function App() {
                       </motion.div>
                     ) : (
                       <div className="bg-zinc-950/40 border border-zinc-900 rounded-3xl p-8 text-center flex flex-col items-center justify-center flex-1 min-h-[500px]">
-                        <div className="h-12 w-12 rounded-full bg-cyan-950/40 border border-cyan-800/40 text-cyan-400 flex items-center justify-center mb-4">
+                        <div className="h-12 w-12 rounded-full bg-amber-950/40 border border-amber-800/40 text-amber-400 flex items-center justify-center mb-4">
                           <Sparkles className="h-5 w-5" />
                         </div>
                         <h4 className="text-base font-bold text-white mb-2">Technical Blueprint Drafting Hub</h4>
@@ -1996,8 +2008,8 @@ export default function App() {
               {/* Founder Profile */}
               <div className="grid md:grid-cols-12 gap-8 bg-[#09090c]/50 backdrop-blur-sm border border-slate-900/80 p-8 rounded-3xl">
                 <div className="md:col-span-4 flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="h-32 w-32 rounded-3xl bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-600 p-[1.5px] relative shrink-0">
-                    <div className="absolute inset-0 bg-cyan-400 rounded-3xl blur-md opacity-25 animate-pulse" />
+                  <div className="h-32 w-32 rounded-3xl bg-gradient-to-tr from-amber-400 via-stone-500 to-zinc-600 p-[1.5px] relative shrink-0">
+                    <div className="absolute inset-0 bg-amber-400 rounded-3xl blur-md opacity-25 animate-pulse" />
                     <div className="h-full w-full rounded-[22px] bg-[#050505] overflow-hidden relative">
                       <img
                         src={profile.avatarBase64 || osamaRealisticAvatarImg}
@@ -2009,7 +2021,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="text-2xl font-black tracking-tight text-white uppercase">{profile.founderName || "Osama Esmael"}</h4>
-                    <span className="text-xs text-cyan-400 uppercase font-mono tracking-[0.2em] block mt-1">
+                    <span className="text-xs text-amber-400 uppercase font-mono tracking-[0.2em] block mt-1">
                       {lang === "ar" ? profile.founderTitleAr : profile.founderTitleEn}
                     </span>
                   </div>
@@ -2020,7 +2032,7 @@ export default function App() {
 
                 <div className="md:col-span-8 space-y-6">
                   <div>
-                    <span className="text-[10px] text-cyan-500 uppercase font-mono tracking-widest block mb-1">
+                    <span className="text-[10px] text-amber-500 uppercase font-mono tracking-widest block mb-1">
                       VETTED DEVELOPMENT EXPERT
                     </span>
                     <h3 className="text-3xl font-black tracking-tight text-white uppercase">
@@ -2037,7 +2049,7 @@ export default function App() {
 
                   <div className="grid sm:grid-cols-2 gap-4 pt-2">
                     <div className="flex gap-3 items-start text-xs">
-                      <ShieldCheck className="h-5 w-5 text-[#06b6d2] shrink-0 mt-0.5" />
+                      <ShieldCheck className="h-5 w-5 text-[#fbbf24] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-white block font-bold uppercase tracking-wide">
                           {lang === "ar" ? "نجاح مضمون بنسبة ١٠٠٪" : "100% Client Success"}
@@ -2048,7 +2060,7 @@ export default function App() {
                       </div>
                     </div>
                     <div className="flex gap-3 items-start text-xs">
-                      <Award className="h-5 w-5 text-[#06b6d2] shrink-0 mt-0.5" />
+                      <Award className="h-5 w-5 text-[#fbbf24] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-white block font-bold uppercase tracking-wide">
                           {lang === "ar" ? "اعتماد رسمي ومنح ريادية" : "State Approved Enterprise"}
@@ -2066,7 +2078,7 @@ export default function App() {
               <div className="space-y-6">
                 <div className="text-center max-w-xl mx-auto">
                   <h3 className="text-2xl font-black tracking-tight text-white uppercase">{t.testimonialsTitle}</h3>
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.23em] font-bold mt-1">
+                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.23em] font-bold mt-1">
                     {t.testimonialsSubtitle}
                   </p>
                 </div>
@@ -2086,11 +2098,11 @@ export default function App() {
                       >
                         <div className="space-y-4">
                           <div className="flex justify-between items-start">
-                            <div className="flex items-center gap-1 text-cyan-400 text-xs">
+                            <div className="flex items-center gap-1 text-amber-400 text-xs">
                               {"★".repeat(5)}
                               <span className="text-[10px] text-zinc-500 ml-1 font-mono">(5.0/5.0)</span>
                             </div>
-                            <span className="text-[9px] font-mono px-2 py-0.5 bg-cyan-950/40 border border-cyan-800/40 text-cyan-300 rounded">
+                            <span className="text-[9px] font-mono px-2 py-0.5 bg-amber-950/40 border border-amber-800/40 text-amber-300 rounded">
                               {badge}
                             </span>
                           </div>
@@ -2099,7 +2111,7 @@ export default function App() {
                           </p>
                         </div>
                         <div className="flex items-center gap-3 pt-6 border-t border-slate-900 mt-4">
-                          <div className="h-8 w-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[10px] font-black text-cyan-400">
+                          <div className="h-8 w-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[10px] font-black text-amber-400">
                             {name[0] || "U"}
                           </div>
                           <div>
@@ -2117,7 +2129,7 @@ export default function App() {
               <div className="space-y-6 pt-6">
                 <div className="text-center max-w-xl mx-auto">
                   <h3 className="text-2xl font-black tracking-tight text-white uppercase">{t.teamTitle}</h3>
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.23em] font-bold mt-1">
+                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.23em] font-bold mt-1">
                     {t.teamSubtitle}
                   </p>
                 </div>
@@ -2136,7 +2148,7 @@ export default function App() {
                       glowColor="rgba(6, 182, 212, 0.12)"
                     >
                       <div className="space-y-4">
-                        <div className="h-16 w-16 rounded-2xl bg-zinc-950 overflow-hidden border border-zinc-800 relative z-20 group-hover:border-cyan-500/50 transition-all duration-300 shrink-0">
+                        <div className="h-16 w-16 rounded-2xl bg-zinc-950 overflow-hidden border border-zinc-800 relative z-20 group-hover:border-amber-500/50 transition-all duration-300 shrink-0">
                           <img
                             src={member.avatar}
                             alt={member.name}
@@ -2145,7 +2157,7 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <h4 className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase">{member.name}</h4>
+                          <h4 className="text-sm font-black text-white group-hover:text-amber-400 transition-colors uppercase">{member.name}</h4>
                           <p className="text-[10px] text-zinc-500 block mt-1 font-mono uppercase tracking-wider">{member.role}</p>
                         </div>
                       </div>
@@ -2171,7 +2183,7 @@ export default function App() {
                   <h3 className="text-2xl font-black tracking-tight text-white uppercase">
                     {lang === "ar" ? "معايير الأكواد والتسليم لعام ٢٠٢٦" : "Our 2026 Production Standards"}
                   </h3>
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.23em] font-bold mt-1">
+                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.23em] font-bold mt-1">
                     {lang === "ar" ? "نموذج الأمان والهندسة الدفاعية" : "Defensive software development metrics"}
                   </p>
                 </div>
@@ -2183,7 +2195,7 @@ export default function App() {
                     { id: "04", title: lang === "ar" ? "الأمن والدفاع الدفاعي" : "Absolute Security", desc: lang === "ar" ? "تشفير الرموز (JWT) والتحقق التام من بوابات الدفع وجدران الحماية لتأمين بيانات شركتك بشكل كلي." : "Securing token endpoints, sanitizing raw queries, and adding complete cryptographic validations automatically." }
                   ].map((step, idx) => (
                     <div key={idx} className="p-8 rounded-3xl bg-[#09090c]/50 backdrop-blur-sm border border-slate-900 space-y-3 hover:border-slate-800 transition-all duration-300">
-                      <span className="text-sm font-mono text-cyan-400 block">{step.id} //</span>
+                      <span className="text-sm font-mono text-amber-400 block">{step.id} //</span>
                       <span className="text-lg font-black tracking-tight text-white uppercase block">{step.title}</span>
                       <p className="text-xs text-zinc-400 leading-relaxed font-light">
                         {step.desc}
@@ -2204,13 +2216,15 @@ export default function App() {
       </section>
 
       {/* Subtle particle separator */}
-      <ParticleSeparator />
+      <Suspense fallback={<div className="h-24 w-full"></div>}>
+        <ParticleSeparator />
+      </Suspense>
 
       {/* Brief Consultation Planner Footer Form */}
       <section className="mx-auto max-w-7xl px-6 lg:px-8 py-20 border-t border-slate-900/60 mt-12 bg-transparent" id="consultation-form">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 space-y-4">
-            <span className="text-[10px] text-cyan-400 uppercase tracking-[0.2em] font-mono block">
+            <span className="text-[10px] text-amber-400 uppercase tracking-[0.2em] font-mono block">
               SCHEDULE YOUR SYSTEMS BRIEFING
             </span>
             <h3 className="text-3xl font-black tracking-tight text-white uppercase sm:text-4xl">Let's Construct a Superior Platform</h3>
@@ -2220,19 +2234,19 @@ export default function App() {
 
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
-                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-cyan-950 text-cyan-400">
+                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-amber-950 text-amber-400">
                   <Check className="h-3 w-3" />
                 </span>
                 <span>100% Code Portability & Handover Guarantee</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
-                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-cyan-950 text-cyan-400">
+                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-amber-950 text-amber-400">
                   <Check className="h-3 w-3" />
                 </span>
                 <span>NDA & Secure Developer Agreement Provided</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
-                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-cyan-950 text-cyan-400">
+                <span className="h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-amber-950 text-amber-400">
                   <Check className="h-3 w-3" />
                 </span>
                 <span>Direct Slack access to Lead Architect</span>
@@ -2256,7 +2270,7 @@ export default function App() {
                 </p>
                 <button 
                   onClick={() => setSubmitted(false)}
-                  className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 font-mono mt-4 cursor-pointer"
+                  className="text-xs font-semibold text-amber-400 hover:text-amber-300 font-mono mt-4 cursor-pointer"
                 >
                   Submit another inquiry
                 </button>
@@ -2270,7 +2284,7 @@ export default function App() {
                     <input
                       type="text"
                       placeholder="e.g., Katherine Wright"
-                      className="w-full bg-zinc-900/40 border border-slate-900/80 px-3.5 py-2.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-cyan-500 font-mono"
+                      className="w-full bg-zinc-900/40 border border-slate-900/80 px-3.5 py-2.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-amber-500 font-mono"
                     />
                   </div>
                   <div>
@@ -2278,7 +2292,7 @@ export default function App() {
                     <input
                       type="email"
                       placeholder="e.g., katherine@enterprise.com"
-                      className="w-full bg-zinc-900/40 border border-slate-900/80 px-3.5 py-2.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-cyan-500 font-mono"
+                      className="w-full bg-zinc-900/40 border border-slate-900/80 px-3.5 py-2.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-amber-500 font-mono"
                     />
                   </div>
                 </div>
@@ -2288,7 +2302,7 @@ export default function App() {
                   <textarea
                     rows={3}
                     placeholder="Give a brief description of the technical platform or bottleneck..."
-                    className="w-full bg-zinc-900/40 border border-slate-900/80 p-3.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-cyan-500 resize-none font-mono"
+                    className="w-full bg-zinc-900/40 border border-slate-900/80 p-3.5 rounded-xl text-xs text-zinc-300 focus:outline-none focus:border-amber-500 resize-none font-mono"
                   />
                 </div>
 
@@ -2311,7 +2325,7 @@ export default function App() {
         </span>
 
         <span className="text-[11px] text-zinc-500 font-mono flex items-center gap-1">
-          Built with <span className="text-cyan-400">Gemini 3.5 Flash</span> Server API.
+          Built with <span className="text-amber-400">Gemini 3.5 Flash</span> Server API.
         </span>
       </footer>
 

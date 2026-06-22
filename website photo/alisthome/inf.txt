@@ -1,0 +1,13 @@
+Next.js 15 Platform Overhaul: Brand Metadata & Dynamic Pricing System
+My role. Lead Next.js/React Developer & Frontend Architect
+
+Project description.
+
+Modernized a South Florida contractor matching platform (Next.js 15, Tailwind). Migrated site-wide copy to a scalable ecosystem model, removing single-founder dependencies. Replaced old static pages with a responsive, high-end 3-tier membership system featuring custom Framer Motion animations and direct Stripe checkout integrations. Optimized SEO, favicon, Apple icons, and Open Graph/Twitter social share assets, achieving 100% compile-success on production builds.
+Skills and deliverables
+
+Next.js
+React
+Tailwind CSS
+Stripe
+SEO Software

@@ -81,16 +81,16 @@ function HighlightPythonLine({ line, isRemoved, isAdded }: { line: string; isRem
             className = "text-amber-200 font-medium";
             break;
           case "keyword":
-            className = "text-cyan-400 font-semibold";
+            className = "text-gold-400 font-semibold";
             break;
           case "function":
             className = "text-emerald-400 font-bold";
             break;
           case "class-name":
-            className = "text-teal-300 font-bold";
+            className = "text-gold-300 font-bold";
             break;
           case "number":
-            className = "text-cyan-300 font-medium";
+            className = "text-gold-300 font-medium";
             break;
           case "operator":
             className = "text-emerald-500 font-bold";
@@ -111,16 +111,16 @@ function HighlightPythonLine({ line, isRemoved, isAdded }: { line: string; isRem
             className = "text-amber-200/95 font-medium";
             break;
           case "keyword":
-            className = "text-cyan-400 font-semibold";
+            className = "text-gold-400 font-semibold";
             break;
           case "function":
             className = "text-emerald-400 font-medium";
             break;
           case "class-name":
-            className = "text-teal-300 font-bold";
+            className = "text-gold-300 font-bold";
             break;
           case "number":
-            className = "text-indigo-300 font-medium";
+            className = "text-gold-300 font-medium";
             break;
           case "operator":
             className = "text-zinc-450";
@@ -132,7 +132,7 @@ function HighlightPythonLine({ line, isRemoved, isAdded }: { line: string; isRem
             className = "text-blue-300 font-medium";
             break;
           case "decorator":
-            className = "text-pink-400 font-medium";
+            className = "text-gold-500 font-medium";
             break;
           case "punctuation":
             className = "text-zinc-550";
@@ -258,7 +258,7 @@ export function CodeDiffViewer({ originalCode, optimizedCode }: CodeDiffViewerPr
       {/* Header controls */}
       <div className="bg-zinc-900/40 px-4 py-2.5 border-b border-zinc-950 flex flex-wrap gap-2 items-center justify-between">
         <div className="flex items-center gap-2">
-          <Terminal className="h-3.5 w-3.5 text-cyan-400" />
+          <Terminal className="h-3.5 w-3.5 text-gold-400" />
           <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest font-bold">
             Interactive Diff Inspector
           </span>
@@ -271,7 +271,7 @@ export function CodeDiffViewer({ originalCode, optimizedCode }: CodeDiffViewerPr
               onClick={() => setViewMode("side-by-side")}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[9px] font-mono uppercase tracking-wider transition-all ${
                 viewMode === "side-by-side"
-                  ? "bg-cyan-500 text-zinc-950 font-black"
+                  ? "bg-gold-500 text-zinc-950 font-black"
                   : "text-zinc-500 hover:text-zinc-300"
               }`}
               title="Side-by-side view"
@@ -283,7 +283,7 @@ export function CodeDiffViewer({ originalCode, optimizedCode }: CodeDiffViewerPr
               onClick={() => setViewMode("inline")}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[9px] font-mono uppercase tracking-wider transition-all ${
                 viewMode === "inline"
-                  ? "bg-cyan-500 text-zinc-950 font-black"
+                  ? "bg-gold-500 text-zinc-950 font-black"
                   : "text-zinc-500 hover:text-zinc-300"
               }`}
               title="Unified inline view"
@@ -314,7 +314,7 @@ export function CodeDiffViewer({ originalCode, optimizedCode }: CodeDiffViewerPr
       </div>
 
       {/* Code diff display zone */}
-      <div className="text-[11px] font-mono overflow-auto max-h-[460px] custom-scrollbar selection:bg-cyan-500/20">
+      <div className="text-[11px] font-mono overflow-auto max-h-[460px] custom-scrollbar selection:bg-gold-500/20">
         {viewMode === "side-by-side" ? (
           <div className="min-w-[650px] grid grid-cols-2 divide-x divide-zinc-900 border-b border-zinc-900/50">
             {/* Left side: Original */}

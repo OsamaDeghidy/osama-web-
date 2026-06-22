@@ -51,6 +51,7 @@ export interface CaseStudy {
   description: string;
   deliverables: string[];
   tags: string[];
+  imageUrl?: string;
 }
 
 export interface ServiceDetail {

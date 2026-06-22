@@ -28,9 +28,9 @@ export function Hero3DScene() {
 
     // 3D slabs/layers representing Server Architecture layers
     const layers = [
-      { name: "API Gateways", y: -90, color: "rgba(34, 211, 238, 0.45)", activeColor: "rgba(34, 211, 238, 0.95)" },
-      { name: "Django Core Core", y: -10, color: "rgba(16, 185, 129, 0.45)", activeColor: "rgba(16, 185, 129, 0.95)" },
-      { name: "PostgreSQL & Cache", y: 70, color: "rgba(99, 102, 241, 0.45)", activeColor: "rgba(99, 102, 241, 0.95)" },
+      { name: "API Gateways", y: -90, color: "rgba(212, 175, 55, 0.45)", activeColor: "rgba(212, 175, 55, 0.95)" },
+      { name: "Django Core Core", y: -10, color: "rgba(228, 228, 231, 0.45)", activeColor: "rgba(228, 228, 231, 0.95)" },
+      { name: "PostgreSQL & Cache", y: 70, color: "rgba(191, 160, 46, 0.45)", activeColor: "rgba(191, 160, 46, 0.95)" },
     ];
 
     // Data packet animations floating between server layers
@@ -184,8 +184,8 @@ export function Hero3DScene() {
         const isHovered = false; // logic resolved screen boundaries
 
         // Fill background server deck plane
-        ctx.fillStyle = lIdx === activeLayer ? "rgba(6, 182, 212, 0.06)" : "rgba(10, 10, 15, 0.35)";
-        ctx.strokeStyle = lIdx === activeLayer ? layer.activeColor : "rgba(6, 182, 212, 0.16)";
+        ctx.fillStyle = lIdx === activeLayer ? "rgba(212, 175, 55, 0.06)" : "rgba(10, 10, 15, 0.35)";
+        ctx.strokeStyle = lIdx === activeLayer ? layer.activeColor : "rgba(212, 175, 55, 0.16)";
         ctx.lineWidth = 1;
 
         ctx.beginPath();
@@ -198,7 +198,7 @@ export function Hero3DScene() {
         ctx.stroke();
 
         // Draw internal wireframe crosshairs for technical grid looks
-        ctx.strokeStyle = "rgba(6, 182, 212, 0.04)";
+        ctx.strokeStyle = "rgba(212, 175, 55, 0.04)";
         ctx.beginPath();
         // Diagonal 1
         ctx.moveTo(projected[0].x, projected[0].y);
@@ -245,7 +245,7 @@ export function Hero3DScene() {
         ctx.arc(pkX, pkY, 2 + scale * 0.6, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.shadowColor = "#22d3ee";
+        ctx.shadowColor = "#d4af37";
         ctx.shadowBlur = 8;
         ctx.fillStyle = "#ffffff";
         ctx.beginPath();
@@ -302,11 +302,11 @@ export function Hero3DScene() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full rounded-3xl bg-[#09090c]/45 backdrop-blur-sm border border-slate-900/90 overflow-hidden min-h-[380px] flex flex-col justify-between p-6 hover:border-cyan-550/30 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.02)]"
+      className="relative w-full rounded-3xl bg-[#09090c]/45 backdrop-blur-sm border border-slate-900/90 overflow-hidden min-h-[380px] flex flex-col justify-between p-6 hover:border-gold-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.02)]"
     >
       <div className="flex justify-between items-start z-10">
         <div>
-          <span className="text-[9px] uppercase tracking-widest px-2.5 py-1 bg-cyan-950/40 border border-cyan-800/40 text-cyan-400 rounded-md font-mono font-bold block w-fit mb-2">
+          <span className="text-[9px] uppercase tracking-widest px-2.5 py-1 bg-gold-950/40 border border-gold-800/40 text-gold-400 rounded-md font-mono font-bold block w-fit mb-2">
             Interactive 3D Engine
           </span>
           <h4 className="text-sm font-black text-white tracking-tight uppercase">Django Cluster Node</h4>
@@ -332,7 +332,7 @@ export function Hero3DScene() {
               onMouseLeave={() => setActiveLayer(null)}
               className={`h-4.5 px-2 rounded text-[8px] font-mono border transition-all ${
                 activeLayer === idx
-                  ? "bg-cyan-500 text-[#050505] border-cyan-400 font-extrabold"
+                  ? "bg-gold-500 text-[#050505] border-gold-400 font-extrabold"
                   : "bg-zinc-900/80 text-zinc-400 border-zinc-800/40 hover:text-white hover:border-zinc-700"
               }`}
             >

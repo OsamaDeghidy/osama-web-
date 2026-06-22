@@ -129,12 +129,12 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
       {/* 1. INTERACTIVE REAL-TIME AUDIT DIAGNOSTIC */}
       <div className="p-8 rounded-3xl bg-[#09090c]/40 backdrop-blur-sm border border-slate-90030/90 hover:border-amber-900/20 transition-all duration-300 relative overflow-hidden">
         {/* Decorative ambient gold glow */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-900/10 rounded-full blur-3xl opacity-30 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-gold-950/20 rounded-full blur-3xl opacity-30 pointer-events-none" />
         
         <div className="max-w-3xl space-y-4 relative z-10">
           <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cyan-400 font-bold">
+            <span className="flex h-2 w-2 rounded-full bg-gold-400 animate-pulse" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold-400 font-bold">
               {lang === "ar" ? "تشخيص الأداء والمقارنة اللحظية" : "Interactive Performance Optimization Simulator"}
             </span>
           </div>
@@ -167,7 +167,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
               onClick={() => setSelectedTarget("optimized")}
               className={`flex-1 py-3 px-4 rounded-xl text-xs font-mono font-bold uppercase cursor-pointer border transition-all text-center ${
                 selectedTarget === "optimized" 
-                  ? "bg-cyan-950/30 border-cyan-800/40 text-cyan-400 shadow-[0_0_15px_rgba(212,175,55,0.06)]" 
+                  ? "bg-gold-950/30 border-gold-800/40 text-gold-400 shadow-[0_0_15px_rgba(212,175,55,0.06)]" 
                   : "bg-zinc-950/60 border-zinc-900 text-zinc-500 hover:text-zinc-350"
               }`}
             >
@@ -179,7 +179,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
             <button
               onClick={handleStartAudit}
               disabled={isRunning}
-              className={`px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 font-bold uppercase text-xs tracking-wider text-[#09090b] transition-all flex items-center gap-2 active:scale-95 cursor-pointer ${
+              className={`px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 font-bold uppercase text-xs tracking-wider text-[#09090b] transition-all flex items-center gap-2 active:scale-95 cursor-pointer ${
                 isRunning ? "opacity-60 cursor-not-allowed" : ""
               }`}
             >
@@ -204,11 +204,11 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
             <div className="bg-zinc-950 border border-zinc-900 rounded-xl p-4 flex justify-between items-center text-xs font-mono">
               <span className="text-zinc-500">
                 {lang === "ar" ? "فئة النظام المحدد:" : "Target Setup:"}{" "}
-                <strong className={selectedTarget === "optimized" ? "text-cyan-400" : "text-red-400"}>
+                <strong className={selectedTarget === "optimized" ? "text-gold-400" : "text-red-400"}>
                   {selectedTarget === "optimized" ? (lang === "ar" ? "محرك أسامة إسماعيل عالي الاستجابة" : "Osama High-Performance Core") : (lang === "ar" ? "منصة عادية غير محسنة" : "Legacy Unoptimized Stack")}
                 </strong>
               </span>
-              <span className={selectedTarget === "optimized" ? "text-cyan-400" : "text-red-400"}>
+              <span className={selectedTarget === "optimized" ? "text-gold-400" : "text-red-400"}>
                 {progress}%
               </span>
             </div>
@@ -216,7 +216,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
             <div className="w-full bg-zinc-950/80 h-3 rounded-full overflow-hidden border border-zinc-900">
               <div 
                 className={`h-full transition-all duration-150 rounded-full ${
-                  selectedTarget === "optimized" ? "bg-cyan-400 shadow-[0_0_10px_#d4af37]" : "bg-red-500"
+                  selectedTarget === "optimized" ? "bg-gold-400 shadow-[0_0_10px_#d4af37]" : "bg-red-500"
                 }`}
                 style={{ width: `${progress}%` }}
               />
@@ -225,7 +225,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
             {/* Simulated Live Diagnostic Stream */}
             {isRunning && (
               <div className="text-[11px] font-mono text-zinc-400 animate-pulse flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping" />
                 <span>
                   {lang === "ar" ? "يتم اختبار:" : "Testing:"} {lang === "ar" ? metricsList[currentMetricIndex].nameAr : metricsList[currentMetricIndex].nameEn} ...
                 </span>
@@ -255,7 +255,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
                     cy="50"
                   />
                   <circle
-                    className={selectedTarget === "optimized" ? "text-cyan-400" : "text-red-500"}
+                    className={selectedTarget === "optimized" ? "text-gold-400" : "text-red-500"}
                     strokeWidth="10"
                     strokeDasharray={2 * Math.PI * 38}
                     strokeDashoffset={2 * Math.PI * 38 * (1 - (selectedTarget === "optimized" ? 0.99 : 0.42))}
@@ -268,7 +268,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
                   />
                 </svg>
                 <div className="absolute flex flex-col items-center">
-                  <span className={`text-4xl font-mono font-black ${selectedTarget === "optimized" ? "text-cyan-400" : "text-red-400"}`}>
+                  <span className={`text-4xl font-mono font-black ${selectedTarget === "optimized" ? "text-gold-400" : "text-red-400"}`}>
                     {selectedTarget === "optimized" ? "99" : "42"}
                   </span>
                   <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-mono font-bold">
@@ -302,7 +302,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
                     <span className="text-zinc-400 font-sans">{lang === "ar" ? m.nameAr : m.nameEn}</span>
                     <div className="flex gap-4 items-center">
                       <span className="text-zinc-600 line-through text-[10px]">{m.standardVal}</span>
-                      <span className={`font-bold ${selectedTarget === "optimized" ? "text-cyan-400" : "text-red-400"}`}>
+                      <span className={`font-bold ${selectedTarget === "optimized" ? "text-gold-400" : "text-red-400"}`}>
                         {selectedTarget === "optimized" ? m.optimizedVal : m.standardVal}
                       </span>
                     </div>
@@ -320,7 +320,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
           <h3 className="text-2xl font-black text-white uppercase tracking-tight">
             {lang === "ar" ? "أسباب تعثر المواقع في السوق ومواطن القصور" : "Core Deficiencies in Local Platforms & Our Defense"}
           </h3>
-          <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.23em] font-bold">
+          <p className="text-[10px] font-mono text-gold-400 uppercase tracking-[0.23em] font-bold">
             {lang === "ar" ? "تحليل هندسي شامل لتكون منافساً حقيقياً" : "Bespoke audit to build market-dominating systems"}
           </p>
         </div>
@@ -336,12 +336,12 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono text-zinc-600">AUDIT GAP #{idx+1}</span>
-                    <span className="p-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-cyan-400">
+                    <span className="p-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-gold-400">
                       <IconComp className="h-4 w-4" />
                     </span>
                   </div>
 
-                  <h4 className="text-base font-black text-white uppercase tracking-tight group-hover:text-cyan-300 transition-colors">
+                  <h4 className="text-base font-black text-white uppercase tracking-tight group-hover:text-gold-300 transition-colors">
                     {lang === "ar" ? g.titleAr : g.titleEn}
                   </h4>
 
@@ -357,8 +357,8 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
                     </div>
 
                     {/* OUR BLUEPRINT SOLUTION */}
-                    <div className="p-3 bg-cyan-950/20 border border-cyan-800/20 rounded-xl space-y-1">
-                      <span className="text-[9px] font-mono text-cyan-400 font-bold block uppercase tracking-wider">
+                    <div className="p-3 bg-gold-950/20 border border-gold-800/20 rounded-xl space-y-1">
+                      <span className="text-[9px] font-mono text-gold-400 font-bold block uppercase tracking-wider">
                         👑 {lang === "ar" ? "الحل الهندسي العالي المنافسة:" : "Osama Ismail System Standard:"}
                       </span>
                       <p className="text-[11px] text-zinc-350 leading-relaxed font-light">
@@ -382,9 +382,9 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
       </div>
 
       {/* 3. SPEED & COMPRESSIVE STANDARDS SUMMARY CALLOUT */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-cyan-950/20 to-zinc-950 border border-cyan-800/20 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="p-6 rounded-3xl bg-gradient-to-r from-gold-950/20 to-zinc-950 border border-gold-800/20 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-1.5">
-          <span className="text-[9px] uppercase font-mono tracking-widest text-cyan-400 font-bold block">
+          <span className="text-[9px] uppercase font-mono tracking-widest text-gold-400 font-bold block">
             {lang === "ar" ? "الامتياز الفني كمعيار أساسي" : "SYSTEM PERFORMANCE ASSURANCE CERTIFICATE"}
           </span>
           <h4 className="text-lg font-black text-white uppercase tracking-tight">
@@ -400,7 +400,7 @@ export function ExpertAudit({ lang }: ExpertAuditProps) {
 
         <a
           href="#consultation-form"
-          className="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-[#09090b] text-[10px] font-bold font-mono uppercase tracking-wider text-center shrink-0 flex items-center gap-1.5 cursor-pointer"
+          className="px-5 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-[#09090b] text-[10px] font-bold font-mono uppercase tracking-wider text-center shrink-0 flex items-center gap-1.5 cursor-pointer"
         >
           <span>{lang === "ar" ? "تأمين مشروعك الآن" : "Secure Development"}</span>
           <ArrowRight className="h-3 w-3" />

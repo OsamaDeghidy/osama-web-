@@ -48,11 +48,11 @@ export function ParticleSeparator() {
 
       // Create beautiful glowing middle line accent (laser thin)
       const gradient = ctx.createLinearGradient(0, height / 2, width, height / 2);
-      gradient.addColorStop(0, "rgba(6, 182, 212, 0)");
-      gradient.addColorStop(0.15, "rgba(6, 182, 212, 0.04)");
-      gradient.addColorStop(0.5, "rgba(34, 211, 238, 0.45)");
-      gradient.addColorStop(0.85, "rgba(6, 182, 212, 0.04)");
-      gradient.addColorStop(1, "rgba(6, 182, 212, 0)");
+      gradient.addColorStop(0, "rgba(212, 175, 55, 0)");
+      gradient.addColorStop(0.15, "rgba(212, 175, 55, 0.04)");
+      gradient.addColorStop(0.5, "rgba(212, 175, 55, 0.45)");
+      gradient.addColorStop(0.85, "rgba(212, 175, 55, 0.04)");
+      gradient.addColorStop(1, "rgba(212, 175, 55, 0)");
 
       ctx.strokeStyle = gradient;
       ctx.lineWidth = 1;
@@ -77,7 +77,7 @@ export function ParticleSeparator() {
           p.decay *= -1;
         }
 
-        ctx.fillStyle = `rgba(34, 211, 238, ${Math.max(0.05, p.alpha)})`;
+        ctx.fillStyle = `rgba(212, 175, 55, ${Math.max(0.05, p.alpha)})`;
         ctx.beginPath();
         // Circular particle
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -93,7 +93,7 @@ export function ParticleSeparator() {
       });
 
       // Draw faint connections close to center line
-      ctx.strokeStyle = "rgba(6, 182, 212, 0.05)";
+      ctx.strokeStyle = "rgba(212, 175, 55, 0.05)";
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {

@@ -26,7 +26,8 @@ export interface CaseStudyItem {
   deliverablesEn: string[];
   deliverablesAr: string[];
   tags: string[];
-  visible: boolean;
+  visible?: boolean;
+  imageUrl?: string;
 }
 
 export interface TechnologyAllianceItem {
@@ -390,60 +391,63 @@ class OrderListView(views.APIView):
   // --- Case Studies (Proven Deployments) ---
   caseStudiesList: [
     {
-      id: "logistics",
-      titleEn: "Enterprise Food Logistics API Engine",
-      titleAr: "بنية محركات اللوجستيات الذكية للمؤسسات البينيّة",
-      clientEn: "Delivora Inc.",
-      clientAr: "شركة ديلفورا المساهمة",
-      industryEn: "Logistics & Supply Chain",
-      industryAr: "سلاسل الإمداد والشحن اللوجستي",
-      category: "backend",
-      metric: "1.2M+",
-      metricLabelEn: "Daily API Calls Handled",
-      metricLabelAr: "طلب واجهة برمجية يومياً",
-      descEn: "A total overhaul of a legacy PHP backend into a high-concurrency Python/Django ecosystem. Standardized database connections, removed slow joins, and configured Celery tasks for path optimizations.",
-      descAr: "إعادة بناء كاملة لبرمجيات PHP قديمة لتصبح بنظام دجانغو بايثون فائق السرعة والأداء. قمنا بتنسيق الاتصال بقواعد البيانات واستئصال بطء الاستعلامات وضبط طوابير مهام Celery الخلفية لتحسين سلوك الشاحنات.",
-      deliverablesEn: ["Django Core upgrade", "PostgreSQL query isolation", "Celery Task Scheduler", "Dockerized cluster setup"],
-      deliverablesAr: ["ترقية نواة دجانغو ٥", "عزل استعلامات PostgreSQL", "جدولة طوابير مهام سيليري", "إعداد حاويات دوكر معزولة"],
-      tags: ["Django REST", "Postgres", "Redis", "Celery", "AWS Cluster"],
-      visible: true
-    },
-    {
-      id: "ecommerce-b2b",
-      titleEn: "High-Traffic Fashion Multi-Vendor E-Commerce",
-      titleAr: "منصة تجارة الكترونية كبرى متعددة المنافذ للملابس",
-      clientEn: "Velvett Luxury",
-      clientAr: "مجموعة ڤيلڤيت الفاخرة",
-      industryEn: "E-Commerce & Retail",
-      industryAr: "التجارة الإلكترونية والتجزئة الرقمية",
-      category: "ecommerce",
-      metric: "2.1s",
-      metricLabelEn: "Global Checkout TTFB",
-      metricLabelAr: "زمن استجابة بوابة الدفع عالمياً",
-      descEn: "Designed a lightweight custom checkout portal with integrated global payment gateways. Handled severe traffic spikes during flash sales by shifting state cache variables to Redis and indexing active database queries.",
-      descAr: "تصميم واجهة فحص مشتريات خفيفة ودقيقة ومدمجة ببوابات الدفع العالمية الكبرى. قمنا بالمرونة في معالجة فترات ذروة الشراء بنقل بيانات الكاش إلى خوادم Redis السريعة وفهرسة استعلامات قواعد البيانات الفعالة.",
-      deliverablesEn: ["Custom Cart Management Engine", "Stripe API Integration", "Redis session structures", "Admin Dashboard UI"],
-      deliverablesAr: ["محرك تشغيل السلال المخصص", "دمج وتأمين بوابة Stripe", "توزيع جلسات المستخدم بـ Redis", "لوحة إدارة الحركات والعملاء"],
-      tags: ["React SPA", "Django Backend", "Redis Cache", "Tailwind CSS", "Stripe API"],
-      visible: true
-    },
-    {
-      id: "agritech",
-      titleEn: "Offline-First Mobile Farm Survey Application",
-      titleAr: "تطبيق مسح المزارع دون اتصال بالإنترنت",
-      clientEn: "Arable Growers Ltd.",
-      clientAr: "أرابل لشركاء الزراعة الرقمية",
-      industryEn: "Agriculture Technology",
-      industryAr: "التكنولوجيا والحلول الزراعية والمعلومات الجغرافية",
-      category: "mobile",
+      id: "kerotrade",
+      titleEn: "Premium Financial Trading LMS & Analytics Platform",
+      titleAr: "منصة أكاديمية التداول المالي (LMS)",
+      clientEn: "Kero Trade",
+      clientAr: "كيرو تريد Kero Trade",
+      industryEn: "E-Learning & Financial",
+      industryAr: "التعليم الإلكتروني والتداول المالي",
+      category: "react_next",
       metric: "100%",
-      metricLabelEn: "Sync Accuracy in No-Cell Zones",
-      metricLabelAr: "دقة المزامنة في الأماكن النائية",
-      descEn: "Built a robust mobile tracking companion designed to handle continuous disconnects. Captured soil surveys, mapped boundaries with native GPS, and completed automatic background synching when network is recovered.",
-      descAr: "تصميم تطبيق هاتف مخصص للعمل دون انترنت في مزارع شاسعة. يقوم بجمع بيانات التربة والحدود الجغرافية بـ GPS المدمج بالهاتف تلقائياً، والجدولة التلقائية لرفع البيانات فور التقاط شبكة خلوية.",
-      deliverablesEn: ["Offline SQLite indexing", "Network synchronization queue", "Custom SVG mapping", "Multi-language companion"],
-      deliverablesAr: ["تخزين البيانات محلياً بـ SQLite", "طوابير مهام المزامنة الذكية", "رسم الحدود الجغرافية SVG", "دعم كامل لتعدد اللغات"],
-      tags: ["React Native", "SQLite Store", "Django sync API", "GeoJson Assets", "Auth0 Integration"],
+      metricLabelEn: "Secure Video Protection",
+      metricLabelAr: "تأمين شامل لمنع تسريب الفيديوهات",
+      descEn: "Developed a premium, dual-language (AR/EN) trading LMS. Engineered a secure video streaming player integrating Bunny CDN (HLS) with dynamic watermark overlays to prevent piracy. Implemented a high-performance MongoDB backend and custom admin panel.",
+      descAr: "برمجة منصة تعليمية للتداول المالي. تم تصميم مشغل فيديو فائق الحماية لمنع التحميل أو السرقة باستخدام Bunny CDN، مع علامات مائية ديناميكية، وبناء لوحة تحكم متكاملة لإدارة الدورات والمبيعات مع قاعدة بيانات MongoDB.",
+      deliverablesEn: ["Next.js Full-Stack", "Bunny CDN Integration", "MongoDB Backend", "Secure Auth & Watermarks"],
+      deliverablesAr: ["تطوير شامل بـ Next.js", "تأمين الفيديوهات Bunny CDN", "قاعدة بيانات MongoDB", "حماية وتسجيل الدخول الموحد"],
+      tags: ["Next.js", "Bunny CDN", "MongoDB", "Tailwind CSS", "Framer Motion"],
+      imageUrl: "/portfolio/kerotrade.png",
+      visible: true
+    },
+    {
+      id: "alisthome",
+      titleEn: "Next.js 15 Platform Overhaul: Dynamic Pricing System",
+      titleAr: "منصة الحجوزات وربط المقاولين في أمريكا",
+      clientEn: "A-List Home Pros",
+      clientAr: "A-List Home Pros",
+      industryEn: "Home Services & Contracting",
+      industryAr: "خدمات المنازل والمقاولات",
+      category: "react_next",
+      metric: "100%",
+      metricLabelEn: "SEO & Production Score",
+      metricLabelAr: "توافق SEO وسرعة الاستجابة",
+      descEn: "Modernized a South Florida contractor matching platform. Replaced static pages with a responsive, high-end 3-tier membership system featuring custom Framer Motion animations and direct Stripe checkout integrations.",
+      descAr: "إعادة بناء شاملة لمنصة ربط المقاولين في فلوريدا. تحويلها لنظام اشتراكات متطور 3-Tiers متصل ببوابة الدفع Stripe مباشرة، مع تحسين هائل للـ SEO وتأثيرات بصرية حركية حديثة.",
+      deliverablesEn: ["Next.js 15 Migration", "Stripe Checkout", "3-Tier Membership", "SEO & Metadata Tuning"],
+      deliverablesAr: ["الترقية لـ Next.js 15", "بوابة دفع Stripe", "نظام عضويات المقاولين", "تحسين محركات البحث SEO"],
+      tags: ["Next.js", "React", "Tailwind CSS", "Stripe", "Framer Motion"],
+      imageUrl: "/portfolio/alisthome.png",
+      visible: true
+    },
+    {
+      id: "rsn",
+      titleEn: "Next.js & Supabase Event Management Platform",
+      titleAr: "منصة إدارة الفعاليات وتأمين الحشود",
+      clientEn: "RSN Alarabiya",
+      clientAr: "رسن العربية RSN",
+      industryEn: "Crowd Management & Security",
+      industryAr: "إدارة الحشود وتأمين الفعاليات",
+      category: "react_next",
+      metric: "High",
+      metricLabelEn: "Performance & Security (RLS)",
+      metricLabelAr: "أمان البيانات والأداء",
+      descEn: "Developed a premium, high-performance web application for a leading crowd management firm in Saudi Arabia. Designed fully responsive service grids with dynamic routing and managed Supabase Row-Level Security (RLS) policies.",
+      descAr: "تطوير منصة رقمية فاخرة لشركة سعودية رائدة في تأمين الحشود. بنيت بـ Next.js مع قاعدة بيانات Supabase. شملت العمليات توجيه ديناميكي للخدمات، وضبط أنظمة أمان قاعدة البيانات (RLS).",
+      deliverablesEn: ["Supabase Integration", "Row-Level Security (RLS)", "Dynamic Routing", "Database Migrations"],
+      deliverablesAr: ["تكامل مع Supabase", "قواعد أمان RLS", "توجيه صفحات ديناميكي", "إدارة وترحيل البيانات"],
+      tags: ["Next.js", "Supabase", "PostgreSQL", "Tailwind CSS", "React"],
+      imageUrl: "/portfolio/rsn.png",
       visible: true
     }
   ],
@@ -725,7 +729,7 @@ export function AdminPanel({ isOpen, onClose, lang, profile, onSaveProfile }: Ad
         {!isLoggedIn ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-md mx-auto w-full space-y-6">
             <div className="text-center space-y-2">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center mx-auto mb-2 shadow-cyan-500/10 shadow-lg">
+              <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-gold-400 to-gold-650 flex items-center justify-center mx-auto mb-2 shadow-gold-500/10 shadow-lg">
                 <Lock className="h-5 w-5 text-white" />
               </div>
               <h4 className="font-black text-white text-lg uppercase tracking-wider">
@@ -783,7 +787,7 @@ export function AdminPanel({ isOpen, onClose, lang, profile, onSaveProfile }: Ad
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-455 hover:to-indigo-550 text-white text-xs uppercase tracking-widest font-black transition cursor-pointer flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-700 hover:from-gold-400 hover:to-gold-600 text-white text-xs uppercase tracking-widest font-black transition cursor-pointer flex items-center justify-center gap-2"
               >
                 <span>{lang === "ar" ? "أبـدأ الاتصـال" : "Deploy Connection"}</span>
               </button>
@@ -1999,7 +2003,7 @@ export function AdminPanel({ isOpen, onClose, lang, profile, onSaveProfile }: Ad
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-widest transition cursor-pointer flex items-center gap-2"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-700 hover:from-gold-400 hover:to-gold-600 text-white font-black text-xs uppercase tracking-widest transition cursor-pointer flex items-center gap-2"
               >
                 {isSaving ? (
                   <>
