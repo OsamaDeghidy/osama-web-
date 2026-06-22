@@ -345,7 +345,7 @@ export function AIAssistantChat({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 30 }}
             transition={{ type: "spring", damping: 25, stiffness: 360 }}
-            className={`fixed bottom-6 ${lang === "ar" ? "left-6" : "right-6"} z-50 w-[94%] sm:w-[420px] h-[590px] rounded-3xl bg-[#08080c]/98 border border-zinc-800/90 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden backdrop-blur-xl`}
+            className={`fixed bottom-6 ${lang === "ar" ? "left-6" : "right-6"} z-50 w-[94%] sm:w-[420px] h-[590px] max-h-[85vh] rounded-3xl bg-[#08080c]/98 border border-zinc-800/90 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden backdrop-blur-xl`}
             style={{ direction: lang === "ar" ? "rtl" : "ltr" }}
           >
             {/* Deep elegant header */}

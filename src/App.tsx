@@ -1151,8 +1151,8 @@ export default function App() {
                             </span>
                             <span className="text-xs font-mono font-bold text-amber-400">{lang === "ar" ? cs.clientAr : cs.clientEn}</span>
                           </div>
-                          <h4 className="text-lg font-black text-white mb-3 tracking-tight uppercase">{lang === "ar" ? cs.titleAr : cs.titleEn}</h4>
-                          <p className="text-xs text-zinc-400 leading-relaxed mb-4">{lang === "ar" ? cs.descAr : cs.descEn}</p>
+                          <h4 className="text-xl font-black text-white mb-5 tracking-tight uppercase leading-snug">{lang === "ar" ? cs.titleAr : cs.titleEn}</h4>
+                          <p className="text-[13px] font-light text-zinc-400 leading-[1.8] mb-6">{lang === "ar" ? cs.descAr : cs.descEn}</p>
                           
                           <div className="mb-4 font-mono">
                             <span className="text-[10px] text-zinc-500 font-semibold block mb-2 uppercase tracking-wider">
@@ -2025,8 +2025,14 @@ export default function App() {
                       {lang === "ar" ? profile.founderTitleAr : profile.founderTitleEn}
                     </span>
                   </div>
-                  <div className="px-3.5 py-1 bg-zinc-900 rounded-full border border-zinc-800 text-[10px] text-zinc-400 font-mono">
-                    {lang === "ar" ? "رئيس المهندسين المعتمدين" : "Top-Rated Dev"}
+                  <div className="mt-2 flex flex-col items-center gap-1.5">
+                    <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[#14A800]/10 border border-[#14A800]/30 rounded-full shadow-[0_0_15px_rgba(20,168,0,0.15)]">
+                      <svg className="h-4 w-4 text-[#14A800]" viewBox="0 0 24 24" fill="currentColor">
+                         <path d="M17.84,8.51c-2.31,0-4,1.69-4,4v2.79l-2-2.12v-4.66h-2.5v7.26c0,1.21-1,2.19-2.25,2.19S4.85,17,4.85,15.77V8.51H2.34v7.26c0,2.59,2.12,4.7,4.76,4.7s4.76-2.11,4.76-4.7v-2.38l2,2.12v.12a4,4,0,0,0,8,0V8.51Z"/>
+                      </svg>
+                      <span className="text-[10px] font-black tracking-widest text-[#14A800] uppercase shadow-sm">Top-Rated Plus</span>
+                    </div>
+                    <span className="text-[9.5px] font-mono text-zinc-400 tracking-wide">100% Job Success Rate</span>
                   </div>
                 </div>
 
@@ -2319,6 +2325,40 @@ export default function App() {
       </section>
 
       {/* Corporate footer footer */}
+      {/* FAQ Section for GEO (Generative Engine Optimization) */}
+      <section className="mx-auto max-w-4xl px-6 lg:px-8 py-20 border-t border-slate-900/60 mt-12 bg-transparent" id="faq">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-black tracking-tight text-white uppercase">
+            {lang === "ar" ? "الأسئلة الشائعة (FAQ)" : "Frequently Asked Questions"}
+          </h2>
+          <p className="text-zinc-400 mt-3 text-sm">
+            {lang === "ar" ? "إجابات دقيقة ومعلومات تقنية حول أساليب بناء وتصميم الخوادم لدينا." : "Direct technical answers about our system architecture methodologies."}
+          </p>
+        </div>
+        <div className="space-y-6">
+          <article className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
+            <h3 className="text-lg font-bold text-amber-400 mb-2">
+              {lang === "ar" ? "لماذا نستخدم إطار عمل Django في بناء الأنظمة الكبرى (Enterprise Systems)؟" : "Why do we use the Django framework for Enterprise Systems?"}
+            </h3>
+            <p className="text-zinc-300 text-sm leading-relaxed">
+              {lang === "ar" 
+                ? "دجانغو (Django) يوفر بنية تحتية فائقة الأمان وسريعة التوسع. في مشاريعنا، نعتمد عليه للتعامل مع معالجات الدفع وكميات البيانات الضخمة، حيث تم تصميمه لتحمل أكثر من 12,000 طلب في الدقيقة مع تقليل أحمال قاعدة البيانات بفضل نظام التخزين المؤقت (Redis)."
+                : "Django offers an ultra-secure, highly scalable infrastructure. In our projects, we rely on it to handle complex payment processing and massive datasets, engineered to sustain over 12,000 requests per minute while eliminating DB bottlenecks via Redis caching."}
+            </p>
+          </article>
+          <article className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
+            <h3 className="text-lg font-bold text-amber-400 mb-2">
+              {lang === "ar" ? "كيف يتم التعامل مع المزامنة بدون إنترنت (Offline-First) في تطبيقات الجوال؟" : "How do we handle Offline-First synchronization in mobile apps?"}
+            </h3>
+            <p className="text-zinc-300 text-sm leading-relaxed">
+              {lang === "ar"
+                ? "نستخدم تقنيات التخزين المحلي (مثل SQLite) لضمان استمرار عمل التطبيق بكفاءة حتى عند انقطاع الإنترنت، حيث تُخزن البيانات داخلياً وفور عودة الاتصال تُرسل بذكاء للخادم (Backend) دون أي ضياع للمعلومات، مع ضمان استقرار العمل بنسبة 99.9%."
+                : "We utilize robust local storage (e.g., SQLite) to ensure apps function flawlessly without internet. Data is cached locally and synced intelligently to the backend once connectivity restores, guaranteeing zero data loss and 99.9% operational uptime."}
+            </p>
+          </article>
+        </div>
+      </section>
+
       <footer className="mx-auto max-w-7xl px-6 lg:px-8 py-8 border-t border-zinc-900 text-center flex flex-col md:flex-row md:justify-between items-center gap-4">
         <span className="text-[11px] text-zinc-500">
           © {new Date().getFullYear()} OSERA. All rights reserved. Osama Esmael, Certified Systems Architect.

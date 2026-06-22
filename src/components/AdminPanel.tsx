@@ -150,7 +150,7 @@ export const DEFAULT_PROFILE: CorporateProfile = {
       descEn: "Advanced AI conversational assistant for system generation & design templates",
       url: "https://www.osara-ai.com/",
       category: "AI & Automation",
-      metric: "Active System"
+      metric: "1M+ Auto-Gens"
     },
     {
       title: "Enterprise Core Manager",
@@ -166,7 +166,7 @@ export const DEFAULT_PROFILE: CorporateProfile = {
       descEn: "Order and shipment logistics ecosystem with real-time background queues",
       url: "https://oms.connect-pack.com/",
       category: "Logistics",
-      metric: "Sync Enabled"
+      metric: "<50ms Latency"
     },
     {
       title: "A-List Home Pros",
@@ -174,7 +174,7 @@ export const DEFAULT_PROFILE: CorporateProfile = {
       descEn: "Enterprise service matching and live scheduled booking web portal in US",
       url: "https://www.alisthomepros.com/",
       category: "Web Engines",
-      metric: "Live Production"
+      metric: "12K+ Bookings"
     },
     {
       title: "RSN Arabiya News Net",
@@ -190,7 +190,7 @@ export const DEFAULT_PROFILE: CorporateProfile = {
       descEn: "Secure international commercial exchange, enterprise supply flows and trade logistics network",
       url: "https://www.kero-trade.com/en",
       category: "Global Trade",
-      metric: "Live Production"
+      metric: "$2M+ Flow Managed"
     }
   ],
 
